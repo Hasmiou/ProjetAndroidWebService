@@ -5,6 +5,7 @@ import fr.ugesellsloaning.api.entities.Product;
 import fr.ugesellsloaning.api.entities.User;
 import fr.ugesellsloaning.api.services.CommentServices;
 import fr.ugesellsloaning.api.services.UserServices;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+@Api( tags={"Operations Commentaires \"Comment\""})
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
