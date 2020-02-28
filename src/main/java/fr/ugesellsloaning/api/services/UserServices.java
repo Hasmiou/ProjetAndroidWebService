@@ -29,6 +29,10 @@ public class UserServices{
         return userRepository.findAllByLogin(login);
     }
 
+    public User getUserByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
     public void delete(User user){
         userRepository.delete(user);
     }

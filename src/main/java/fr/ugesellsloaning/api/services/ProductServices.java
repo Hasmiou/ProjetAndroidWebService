@@ -1,7 +1,6 @@
 package fr.ugesellsloaning.api.services;
 
 import fr.ugesellsloaning.api.entities.Product;
-import fr.ugesellsloaning.api.entities.User;
 import fr.ugesellsloaning.api.repositories.IProductRepository;
 import fr.ugesellsloaning.api.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,11 @@ import java.util.Optional;
 public class ProductServices {
     @Autowired
     private IProductRepository productRepostory;
+
+    @Autowired
+    private IUserRepository userRepostory;
+
+    //SecurityUtils securityUtils = new SecurityUtils();
 
     public void save(Product product){
         productRepostory.save(product);
@@ -28,6 +32,10 @@ public class ProductServices {
     public List<Product> getProductByCategory(String category){ return productRepostory.findProductsByCategory(category);}
 
     public  List<Product> getProductByName(String name){ return productRepostory.findProductsByName(name);}
+
+    public List<Product> getProductOfCurrentUser(String username){
+        return productRepostory.findAllForCurrentUser(username);
+    }
 
     public void delete(Product product){
         productRepostory.delete(product);
