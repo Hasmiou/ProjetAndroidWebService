@@ -53,8 +53,10 @@ public class Product implements Serializable {
 
     Date createdAt;
 
-    @Column(length = 500)
-    String image;
+    /*@Column(length = 500)
+    String image;*/
+    @OneToOne
+    Media image;
 
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(nullable = true)
