@@ -52,8 +52,8 @@ public class ProductController {
 
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody Product product, @RequestParam("file") MultipartFile file){
-        String fileName = fileService.storeFile(file);
-        log.info("Create product with image "+fileName);
+        //String fileName = fileService.storeFile(file);
+        //log.info("Create product with image "+fileName);
         /*ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
