@@ -2,7 +2,7 @@ package fr.ugesellsloaning.api.controllers;
 
 import fr.ugesellsloaning.api.entities.Product;
 import fr.ugesellsloaning.api.entities.User;
-import fr.ugesellsloaning.api.services.FileService;
+//import fr.ugesellsloaning.api.services.FileService;
 import fr.ugesellsloaning.api.services.ProductServices;
 import fr.ugesellsloaning.api.services.UserServices;
 import io.swagger.annotations.Api;
@@ -32,8 +32,8 @@ public class ProductController {
     @Autowired
     HttpServletRequest request;
 
-    @Autowired
-    private FileService fileService;
+    //@Autowired
+    //private FileService fileService;
 
     private  Logger log = LoggerFactory.getLogger(ProductController.class);
 
