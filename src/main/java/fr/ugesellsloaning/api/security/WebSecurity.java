@@ -16,8 +16,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static fr.ugesellsloaning.api.security.SecurityProperties.SIGN_UP_URL;
-
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private static final String DEFAULT_INCLUDE_PATTERN = "/api/**";
@@ -31,6 +29,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected  void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
                 //--------Swagger authorisation------------
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/").permitAll()
