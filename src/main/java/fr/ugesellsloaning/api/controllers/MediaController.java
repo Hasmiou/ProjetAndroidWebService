@@ -83,6 +83,7 @@ public class MediaController {
     public ResponseEntity delete(@PathVariable String filename){
         File file = new File(fileStorageProperties.getUploadDir()+filename);
         if(file.delete()){
+            //mediaServices.delete();
             return ResponseEntity.ok().build();
         }else{
             return ResponseEntity.notFound().build();

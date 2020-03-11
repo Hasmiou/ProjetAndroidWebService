@@ -18,7 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
-    private static final String DEFAULT_INCLUDE_PATTERN = "/api/**";
+    private static final String DEFAULT_INCLUDE_PATTERN = "/api/toRemove/**";
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
