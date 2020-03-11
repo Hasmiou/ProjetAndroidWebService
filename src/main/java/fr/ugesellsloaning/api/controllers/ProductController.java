@@ -1,5 +1,6 @@
 package fr.ugesellsloaning.api.controllers;
 
+import fr.ugesellsloaning.api.entities.Media;
 import fr.ugesellsloaning.api.entities.Product;
 import fr.ugesellsloaning.api.entities.User;
 //import fr.ugesellsloaning.api.services.FileService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +70,8 @@ public class ProductController {
 
     @GetMapping(path = "/{id}")
     //@PostAuthorize("hasAuthority('ADMIN') || (returnObject != null && returnObject.getUser().getEmail() == authentication.principal)")
-    public Optional<Product> getById(@PathVariable(value = "id")  long id){ return  productServices.getProductById(id); }
+    public Optional<Product> getById(@PathVariable(value = "id")  long id){
+        return productServices.getProductById(id); }
 
     @GetMapping(path = "/name/{name}")
     public List<Product> getByName(@PathVariable(value = "name")  String name){ return  productServices.getProductByName(name); }
