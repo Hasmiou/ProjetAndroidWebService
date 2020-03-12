@@ -14,6 +14,13 @@ import javax.persistence.*;
 @ToString
 @Entity
 public class Media {
+/*
+    public Media(Long i, String file, String path){
+        this.id = i;
+        this.filename = file;
+        this.path = path;
+    }
+   */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

@@ -15,11 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Api( tags={"Operations Produits \"Product\""})
 @RestController
@@ -44,6 +42,7 @@ public class ProductController {
         return (List<Product>) productServices.listProduct();
     }
 
+    /*
     @GetMapping(path = "/current-user/")
     //@PostAuthorize("hasAuthority('ADMIN') || (returnObject != null && returnObject.getUser().getEmail() == authentication.name)")
     public List<Product> listProductOfUser(){
@@ -52,26 +51,31 @@ public class ProductController {
         return productServices.getProductOfCurrentUser(username);
     }
 
+     */
+
     @PostMapping(path = "/")
-    public void add(@Valid @RequestBody Product product, @RequestParam("file") MultipartFile file){
+    public void add(@Valid @RequestBody Product product){
+        //, @RequestParam("file") MultipartFile file
         //String fileName = fileService.storeFile(file);
         //log.info("Create product with image "+fileName);
         /*ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();*/
-        String username = request.getUserPrincipal().getName();
-        log.info("Add product by "+username);
-        User user = userServices.getUserByEmail(username);
-        product.setUser(user);
+        //String username = request.getUserPrincipal().getName();
+        //log.info("Add product by "+username);
+        //User user = userServices.getUserByEmail(username);
+        //product.setUser(user);
         //product.setImage(fileName);
         productServices.save(product);
     }
 
     @GetMapping(path = "/{id}")
     //@PostAuthorize("hasAuthority('ADMIN') || (returnObject != null && returnObject.getUser().getEmail() == authentication.principal)")
-    public Optional<Product> getById(@PathVariable(value = "id")  long id){
-        return productServices.getProductById(id); }
+    public Product getById(@PathVariable(value = "id")  long id){
+        //return productServices.getProductById(id);
+        return new Product(new Long(23), "nom", "catgory", "type", "description", 22.2, "Etat", true, new Date());
+    }
 
     @GetMapping(path = "/name/{name}")
     public List<Product> getByName(@PathVariable(value = "name")  String name){ return  productServices.getProductByName(name); }
@@ -85,11 +89,15 @@ public class ProductController {
         String username = request.getUserPrincipal().getName();
         log.info("Edit product by "+username);
         User user = userServices.getUserByEmail(username);
+
+        /*
         if(product.getUser() == user || user.getRole()=="admin"){
             productServices.save(product);
         }else{
             throw new Exception("Erreur vous devez etre admin ou proprietaire");
         }
+
+         */
     }
 
     @DeleteMapping("/{id}")
