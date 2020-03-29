@@ -22,7 +22,7 @@ import java.util.Date;
 public class Product implements Serializable {
     public  Product(){
         createdAt = new Date();
-        available = false;
+        available = true;
     }
 
     @Id
@@ -53,9 +53,9 @@ public class Product implements Serializable {
 
     Date createdAt;
 
-    /*
-    /*@Column(length = 500)
-    String image;*/
+
+    @Column(length = 500)
+    String path;
 
     /*
     @OneToOne
