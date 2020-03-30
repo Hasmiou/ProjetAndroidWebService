@@ -92,7 +92,7 @@ public class Product implements Serializable {
         this.createdAt = date;
         //this.image = media;
     }
-/*
+
     @JsonRawValue
     public int totalComment(){
         return comments.size();
@@ -106,5 +106,5 @@ public class Product implements Serializable {
             return 0;
         }
     }
-*/
+
 }

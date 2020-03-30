@@ -32,6 +32,7 @@ public class ProductController {
     @Autowired
     HttpServletRequest request;
 
+    private Product p;
     //@Autowired
     //private FileService fileService;
 
@@ -39,7 +40,9 @@ public class ProductController {
 
     @GetMapping(path = "/")
     public List<Product> list(){
+
         return (List<Product>) productServices.listProduct();
+
     }
 
     /*
@@ -68,6 +71,7 @@ public class ProductController {
         //product.setUser(user);
         //product.setImage(fileName);
         productServices.save(product);
+
     }
 
     @GetMapping(path = "/{id}")
@@ -104,4 +108,6 @@ public class ProductController {
     public void deleteById(@PathVariable(value = "id")  long id){
         productServices.deleteById(id);
     }
+
+
 }

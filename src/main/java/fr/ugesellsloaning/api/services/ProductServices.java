@@ -24,7 +24,8 @@ public class ProductServices {
     }
 
     public Iterable<Product> listProduct(){
-        return productRepostory.findAll();
+
+        return productRepostory.findAll() ;
     }
 
     public Optional<Product> getProductById(long id){ return productRepostory.findById(id); }
@@ -48,9 +49,6 @@ public class ProductServices {
     public void deleteById(Long id){
         productRepostory.deleteById(id);
     }
-
-
-
 
 
 

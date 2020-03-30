@@ -22,9 +22,10 @@ public class Comment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
+
     @NotBlank
     @Column(length = 2000)
-    long content;
+    String content;
 
     float rate;
     Date createdAt;
