@@ -1,6 +1,5 @@
 package fr.ugesellsloaning.api.controllers;
 
-import fr.ugesellsloaning.api.entities.Media;
 import fr.ugesellsloaning.api.entities.Product;
 import fr.ugesellsloaning.api.entities.User;
 //import fr.ugesellsloaning.api.services.FileService;
@@ -13,11 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
-import org.springframework.web.multipart.MultipartFile;
 
 @Api( tags={"Operations Produits \"Product\""})
 @RestController
@@ -45,7 +43,7 @@ public class ProductController {
 
     }
 
-    /*
+/*
     @GetMapping(path = "/current-user/")
     //@PostAuthorize("hasAuthority('ADMIN') || (returnObject != null && returnObject.getUser().getEmail() == authentication.name)")
     public List<Product> listProductOfUser(){
@@ -53,8 +51,11 @@ public class ProductController {
         log.info("Load product of Current user "+username);
         return productServices.getProductOfCurrentUser(username);
     }
+*/
 
-     */
+
+
+
 
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody Product product){
@@ -76,9 +77,9 @@ public class ProductController {
 
     @GetMapping(path = "/{id}")
     //@PostAuthorize("hasAuthority('ADMIN') || (returnObject != null && returnObject.getUser().getEmail() == authentication.principal)")
-    public Product getById(@PathVariable(value = "id")  long id){
-        //return productServices.getProductById(id);
-        return new Product(new Long(23), "nom", "catgory", "type", "description", 22.2, "Etat", true, new Date());
+    public Optional<Product> getById(@PathVariable(value = "id")  long id){
+        return productServices.getProductById(id);
+        //return new Product(new Long(23), "nom", "catgory", "type", "description", 22.2, "Etat", true, new Date());
     }
 
     @GetMapping(path = "/name/{name}")

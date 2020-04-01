@@ -5,6 +5,8 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
@@ -14,7 +16,7 @@ import java.util.Date;
 @Entity
 public class Borrow implements Serializable {
     public Borrow(){
-        startAt = new Date();
+
         returned = false;
     }
 
@@ -22,9 +24,9 @@ public class Borrow implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    Date startAt;
+    String startAt;
 
-    Date endAt;
+    String endAt;
 
     boolean returned;
 

@@ -1,5 +1,8 @@
 package fr.ugesellsloaning.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -7,6 +10,8 @@ import javax.persistence.*;
 import fr.ugesellsloaning.api.entities.User;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -17,7 +22,9 @@ import java.util.Date;
 @Entity
 public class Comment implements Serializable {
     public Comment(){
-        createdAt = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d = new Date();
+        createdAt = dateFormat.format(d).toString();
     }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,10 +34,18 @@ public class Comment implements Serializable {
     @Column(length = 2000)
     String content;
 
-    float rate;
-    Date createdAt;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+
+    int rate;
+
+    String createdAt;
+
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     User user;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     Product product;
 }

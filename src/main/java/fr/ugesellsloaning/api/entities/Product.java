@@ -1,5 +1,7 @@
 package fr.ugesellsloaning.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -9,8 +11,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -21,7 +26,9 @@ import java.util.Date;
 @Entity
 public class Product implements Serializable {
     public  Product(){
-        createdAt = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d = new Date();
+        createdAt = dateFormat.format(d).toString();
         available = true;
     }
 
@@ -51,7 +58,7 @@ public class Product implements Serializable {
 
     boolean available;
 
-    Date createdAt;
+    String createdAt;
 
 
     @Column(length = 500)
@@ -62,23 +69,27 @@ public class Product implements Serializable {
     Media image;
 
      */
-/*
+
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(nullable = true)
-    //@JsonBackReference
+    @JsonBackReference(value = "user")
     User user;
-*/
+
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    //@JsonBackReference
+   // @JsonBackReference(value = "comments")
     Collection<Comment> comments;
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    //@JsonBackReference
+    @JsonBackReference(value = "borrows")
     Collection<Borrow> borrows;
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    //@JsonBackReference
+    @JsonBackReference(value = "requestBorrows")
     Collection<RequestBorrow> requestBorrows;
+
+
+
+
 
     public Product(long i, String nom, String catgor, String type, String description, double v, String etat, boolean b, Date date) {
         this.id = i;
@@ -89,7 +100,7 @@ public class Product implements Serializable {
         this.price = v;
         this.state = etat;
         date = new Date();
-        this.createdAt = date;
+       // this.createdAt = date;
         //this.image = media;
     }
 
@@ -99,12 +110,26 @@ public class Product implements Serializable {
     }
 
     @JsonRawValue
-    public double avgRate(){
+    public int avgRate(){
         if( comments.size()>0){
-            return (comments.stream().mapToDouble(Comment::getRate).average()).getAsDouble();
+           // Double rate = comments.stream().mapToDouble(Comment::getRate).average().getAsDouble();
+            return ConvertRate(comments.stream().mapToDouble(Comment::getRate).average().getAsDouble());
         }else{
             return 0;
         }
+    }
+
+    int ConvertRate(double rate) {
+        double rate10 = rate*10;
+        int rate2 =(int)rate;
+        int intRate = rate2*10;
+
+        int intRate10 = (int)rate10;
+        int diff = intRate10 - intRate;
+
+        if(diff==5) return intRate10;
+        else if(diff<5) return intRate;
+        else return intRate+5;
     }
 
 }
