@@ -30,7 +30,7 @@ public class BorrowController {
 
     @GetMapping(path = "/borrowByProduct/{id}")
     public List<Borrow> listProduct(@PathVariable(value = "id")  long id){
-        return  borrowServices.getBorrowByProduct(id);
+        return (List<Borrow>) borrowServices.getBorrowByProduct(id);
     }
 
     @PostMapping(path = "/")

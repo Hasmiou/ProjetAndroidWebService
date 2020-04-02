@@ -30,4 +30,6 @@ public class ReturnProduct {
     String returnAt;
     long product;
 
+    String state;
+
 }

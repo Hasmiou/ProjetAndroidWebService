@@ -39,7 +39,7 @@ public class ProductServices {
         Iterable<Product> list = productRepostory.findAll();
         for (Product p:list) {
             p.setComments(commentServices.getCommentByProduct(p.getId()));
-            p.setBorrows(borrowServices.getBorrowByProduct(p.getId()));
+            p.setBorrows((Collection<Borrow>) borrowServices.getBorrowByProduct(p.getId()));
             p.setRequestBorrows(requestBorrowServices.getRequestBorrowByProduct(p.getId()));
         }
         return list;
@@ -49,7 +49,7 @@ public class ProductServices {
 
         Product p = productRepostory.findById(id);
         p.setComments(commentServices.getCommentByProduct(p.getId()));
-        p.setBorrows(borrowServices.getBorrowByProduct(p.getId()));
+        p.setBorrows((Collection<Borrow>) borrowServices.getBorrowByProduct(p.getId()));
         p.setRequestBorrows(requestBorrowServices.getRequestBorrowByProduct(p.getId()));
         return p;
     }
