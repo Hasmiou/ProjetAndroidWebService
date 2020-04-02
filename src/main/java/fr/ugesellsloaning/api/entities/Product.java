@@ -1,6 +1,7 @@
 package fr.ugesellsloaning.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.*;
@@ -75,21 +76,21 @@ public class Product implements Serializable {
     @JsonBackReference(value = "user")
     User user;
 
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
    // @JsonBackReference(value = "comments")
     Collection<Comment> comments;
 
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    @JsonBackReference(value = "borrows")
+
+    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    //@JsonIgnore
     Collection<Borrow> borrows;
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    @JsonBackReference(value = "requestBorrows")
+    //@JsonIgnore
     Collection<RequestBorrow> requestBorrows;
 
 
-
-
+/*
 
     public Product(long i, String nom, String catgor, String type, String description, double v, String etat, boolean b, Date date) {
         this.id = i;
@@ -103,7 +104,7 @@ public class Product implements Serializable {
        // this.createdAt = date;
         //this.image = media;
     }
-
+*/
     @JsonRawValue
     public int totalComment(){
         return comments.size();

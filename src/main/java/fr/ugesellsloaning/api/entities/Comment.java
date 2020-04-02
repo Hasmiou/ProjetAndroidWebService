@@ -8,6 +8,9 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import fr.ugesellsloaning.api.entities.User;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -40,12 +43,18 @@ public class Comment implements Serializable {
 
     String createdAt;
 
+    long product;
+
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @Fetch(FetchMode.JOIN)
     User user;
-
+/*
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JsonIgnore
-    Product product;
+    //@JsonIgnore
+    @Fetch(FetchMode.JOIN)
+    Product products;
+*/
+
 }

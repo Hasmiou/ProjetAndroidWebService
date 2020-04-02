@@ -13,6 +13,7 @@ public interface IProductRepository extends CrudRepository<Product, Long> {
     List<Product> findProductsByName(String name);
 
     List<Product> findProductsByCategory(String category);
+    Product findById(long id);
 
 /*
     @Query("select p from Product p where p.user.email = :currentUser")

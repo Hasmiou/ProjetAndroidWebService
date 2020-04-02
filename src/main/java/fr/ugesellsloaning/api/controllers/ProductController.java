@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 
@@ -77,7 +76,7 @@ public class ProductController {
 
     @GetMapping(path = "/{id}")
     //@PostAuthorize("hasAuthority('ADMIN') || (returnObject != null && returnObject.getUser().getEmail() == authentication.principal)")
-    public Optional<Product> getById(@PathVariable(value = "id")  long id){
+    public Product getById(@PathVariable(value = "id")  long id){
         return productServices.getProductById(id);
         //return new Product(new Long(23), "nom", "catgory", "type", "description", 22.2, "Etat", true, new Date());
     }

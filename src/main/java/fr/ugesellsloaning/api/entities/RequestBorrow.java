@@ -20,6 +20,7 @@ public class RequestBorrow implements Serializable {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d = new Date();
         askedAt = dateFormat.format(d).toString();
+        status=false;
     }
 
 
@@ -29,15 +30,18 @@ public class RequestBorrow implements Serializable {
 
     String askedAt;
 
-    String status;
+    boolean status;
 
     String startAt;
 
     String endAt;
 
+    long product;
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
     Product product;
-
+    */
     @ManyToOne(fetch = FetchType.LAZY)
     User user;
+
 }

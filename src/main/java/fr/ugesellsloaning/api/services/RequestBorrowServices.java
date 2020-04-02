@@ -34,6 +34,10 @@ public class RequestBorrowServices {
         requestBorrowRepository.deleteById(id);
     }
 
+    public List<RequestBorrow> getRequestBorrowByProduct(long product){
+        return requestBorrowRepository.findRequestBorrowByProduct(product);
+    }
+
 
 
 

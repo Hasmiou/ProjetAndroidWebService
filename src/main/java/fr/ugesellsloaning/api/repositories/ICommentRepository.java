@@ -8,5 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ICommentRepository extends CrudRepository<Comment, Long> {
-        List<Comment> findCommentByProduct(Product product);
+        List<Comment> findCommentByProduct(long product);
+
 }

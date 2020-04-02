@@ -16,7 +16,6 @@ import java.util.Date;
 @Entity
 public class Borrow implements Serializable {
     public Borrow(){
-
         returned = false;
     }
 
@@ -30,9 +29,11 @@ public class Borrow implements Serializable {
 
     boolean returned;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    Product product;
+    long product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     User user;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    ReturnProduct returnProduct;
 }
