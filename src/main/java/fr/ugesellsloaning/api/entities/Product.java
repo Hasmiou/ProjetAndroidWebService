@@ -82,11 +82,11 @@ public class Product implements Serializable {
 
 
     @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    //@JsonIgnore
+    @JsonIgnore
     Collection<Borrow> borrows;
 
     @OneToMany( cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    //@JsonIgnore
+    @JsonIgnore
     Collection<RequestBorrow> requestBorrows;
 
 
