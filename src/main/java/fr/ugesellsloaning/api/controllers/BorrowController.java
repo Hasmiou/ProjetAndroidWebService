@@ -34,8 +34,15 @@ public class BorrowController {
     }
 
     @GetMapping(path = "/borrowByProduct/{id}")
-    public List<Borrow> listProduct(@PathVariable(value = "id")  long id){
-        return (List<Borrow>) borrowServices.getBorrowByProduct(id);
+    public Borrow listProduct(@PathVariable(value = "id")  long id){
+         List<Borrow> bb = borrowServices.getBorrowByProduct(id);
+        for (Borrow b: bb ) {
+            if (!b.isReturned()){
+                return b;
+            }
+
+        }
+        return null;
     }
 
     @PostMapping(path = "/")
