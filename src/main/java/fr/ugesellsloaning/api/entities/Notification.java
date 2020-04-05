@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Getter
@@ -21,6 +23,8 @@ public class Notification implements Serializable {
         Date d = new Date();
         createdAt = dateFormat.format(d).toString();
     }
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
@@ -28,6 +32,7 @@ public class Notification implements Serializable {
     @Column(length = 2000)
     String message;
     String createdAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     User user;
 }
