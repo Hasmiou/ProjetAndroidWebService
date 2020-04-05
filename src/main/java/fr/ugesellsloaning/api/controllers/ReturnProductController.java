@@ -44,7 +44,7 @@ public class ReturnProductController {
 
 
 
-        //List<Borrow> list = borrowServices.getBorrowByProduct(returnProduct.getProduct());
+
         Borrow  b = borrowServices.BorrowReturnedIsFalse(returnProduct.getProduct());
         b.setReturned(true);
         borrowServices.save(b);

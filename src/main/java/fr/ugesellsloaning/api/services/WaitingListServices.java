@@ -42,9 +42,7 @@ public class WaitingListServices {
     }
 
     public WaitingList getWaitingListByProduct(long product){
-       // WaitingList l = iWaitingList.findWaitingListByProduct(product);
         WaitingList waitingList = new WaitingList(product, requestBorrowServices.getRequestBorrowNoTTraitedByidProduit(product));
-       // l.setRequestBorrow(requestBorrowServices.getRequestBorrowNoTTraitedByidProduit(product));
         return waitingList;
     }
 
@@ -54,7 +52,6 @@ public class WaitingListServices {
         Vector<User> listUtilisateur =new Vector<User>();
 
         for (RequestBorrow requestBorrow : waitingList.getRequestBorrow()) {
-           // User u = requestBorrow.getUser();
             listUtilisateur.add(userServices.getUserById(requestBorrow.getUser()));
         }
         if(listUtilisateur.size()!=0) {
@@ -67,9 +64,7 @@ public class WaitingListServices {
                     if (prioritaire.getNberOfTimesToBorrow()>current.getNberOfTimesToBorrow()) prioritaire=current;
                     else if (prioritaire.getNberOfTimesToBorrow()==current.getNberOfTimesToBorrow()) {
                         RequestBorrow requestPriority = requestBorrowServices.getResquestBorrowByProductAndUser(waitingList.getProduct(), prioritaire.getId());
-                       // DemandeEmprunte DemandePrioritaire = demandeEmprunteDao.getDemandeEmprunteByidProduitAndIdUtilisateur(a.getIdProduit(), prioritaire.getId());
                         RequestBorrow currentRequest = requestBorrowServices.getResquestBorrowByProductAndUser(requestPriority.getProduct(), current.getId());
-                      //  DemandeEmprunte DemandeCurrent = demandeEmprunteDao.getDemandeEmprunteByidProduitAndIdUtilisateur(a.getIdProduit(), current.getId());
                         if(Date1BeforeDate2(requestPriority.getAskedAt(),  currentRequest.getAskedAt())==false) prioritaire=current;
                     }
                 }
@@ -93,13 +88,9 @@ public class WaitingListServices {
     public User WaitingListTraitement(long product) {
         WaitingList la =  getWaitingListByProduct(product);
         User u = UserPioritary(la);
-       // Utilisateur u =UtilisateurPrioritaire(la);
         if(u!=null) {
             Product p = productServices.getProductById(product);
-           // Produit p = produitDao.GetProduitById(idProduit);
             String date = requestBorrowServices.getResquestBorrowByProductAndUser(product, u.getId()).getAskedAt();
-                   // demandeEmprunteDao.getDemandeEmprunteByidProduitAndIdUtilisateur(idProduit, u.getId()).getDatedemande();
-
         }
         return u;
     }
