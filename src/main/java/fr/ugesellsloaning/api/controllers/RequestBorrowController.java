@@ -29,7 +29,7 @@ public class RequestBorrowController {
 
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody RequestBorrow requestBorrow){
-        String email = "kanghebalde@mail.com";
+        String email = "ssdswwd@mail.com";
         User user = userServices.getUserByEmail(email);
         requestBorrow.setUser(user.getId());
 
