@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
@@ -16,11 +17,18 @@ import java.io.Serializable;
 @Entity
 public class WaitingList implements Serializable {
 
+    public WaitingList(long product, List<RequestBorrow>  requestBorrow){
+        this.product = product;
+        this.requestBorrow = requestBorrow;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    //@OneToMany(fetch = FetchType.LAZY)
-    //RequestBorrow requestBorrow;
+    long product;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    List<RequestBorrow> requestBorrow;
 
 }

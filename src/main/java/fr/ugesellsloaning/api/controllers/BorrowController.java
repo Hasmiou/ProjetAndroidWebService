@@ -50,7 +50,13 @@ public class BorrowController {
         String email = "kanghebalde@mail.com";
         User user = userServices.getUserByEmail(email);
         borrow.setUser(user);
+        //borrow
         borrowServices.save(borrow);
+
+        //update NbrOfTimesToBorrow
+        user.setNberOfTimesToBorrow(user.getNberOfTimesToBorrow() + 1);
+        userServices.save(user);
+
 
         Product p = productServices.getProductById(borrow.getProduct());
         p.setAvailable(false);

@@ -54,7 +54,15 @@ public class ProductServices {
         return p;
     }
 
-    public List<Product> getProductByCategory(String category){ return productRepostory.findProductsByCategory(category);}
+    public List<Product> getProductByCategory(String category){
+        List<Product> list = productRepostory.findProductsByCategory(category);
+        for (Product p:list) {
+            p.setComments(commentServices.getCommentByProduct(p.getId()));
+            p.setBorrows((Collection<Borrow>) borrowServices.getBorrowByProduct(p.getId()));
+            p.setRequestBorrows(requestBorrowServices.getRequestBorrowByProduct(p.getId()));
+        }
+        return list;
+    }
 
     public  List<Product> getProductByName(String name){ return productRepostory.findProductsByName(name);}
 

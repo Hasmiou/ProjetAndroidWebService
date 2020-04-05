@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/api/user/{id}")
-    public Optional<User> getById(@PathVariable(value = "id")  long id){
+    public User getById(@PathVariable(value = "id")  long id){
         return  userServices.getUserById(id);
     }
 

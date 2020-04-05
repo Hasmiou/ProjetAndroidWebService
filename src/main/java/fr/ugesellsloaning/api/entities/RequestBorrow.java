@@ -37,11 +37,14 @@ public class RequestBorrow implements Serializable {
     String endAt;
 
     long product;
+
+    long user;
     /*
     @ManyToOne(fetch = FetchType.LAZY)
     Product product;
-    */
+
     @ManyToOne(fetch = FetchType.LAZY)
     User user;
+         */
 
 }

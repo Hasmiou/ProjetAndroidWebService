@@ -35,6 +35,8 @@ public class User implements Serializable {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date d = new java.util.Date();
         updatedAt = dateFormat.format(d).toString();
+        NberOfTimesToBorrow = 0;
+
     }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -81,6 +83,9 @@ public class User implements Serializable {
     String updatedBy;
 
 
+    long NberOfTimesToBorrow;
+
+
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JsonBackReference(value = "user-product")
@@ -108,7 +113,7 @@ public class User implements Serializable {
     @JsonBackReference(value = "user-borrows")
     Collection<Borrow> borrows;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JsonBackReference(value = "user-request")
     Collection<RequestBorrow> requestBorrows;
 }
