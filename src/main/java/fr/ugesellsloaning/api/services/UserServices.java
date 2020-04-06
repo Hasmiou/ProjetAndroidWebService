@@ -1,5 +1,6 @@
 package fr.ugesellsloaning.api.services;
 
+import fr.ugesellsloaning.api.entities.Notification;
 import fr.ugesellsloaning.api.entities.RequestBorrow;
 import fr.ugesellsloaning.api.entities.User;
 import fr.ugesellsloaning.api.entities.WaitingList;
@@ -16,24 +17,69 @@ public class UserServices{
     @Autowired
     private IUserRepository userRepository;
 
+    @Autowired
+    CommentServices commentServices;
+
+    @Autowired
+    NotificationServices notificationServices;
+
+    @Autowired
+    BorrowServices borrowServices;
+
+    @Autowired
+    RequestBorrowServices requestBorrowServices;
+
     public void save(User user){
         userRepository.save(user);
     }
 
     public Iterable<User> listUser(){
-        return userRepository.findAll();
+        Iterable<User> listUser = userRepository.findAll();
+        for (User u : listUser) {
+            u.setComments(commentServices.getCommentByUser(u.getId()));
+            u.setNotifications(notificationServices.getNotificationByUser(u.getId()));
+            u.setBorrows(borrowServices.borrowByUser(u.getId()));
+            u.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(u.getId()));
+
+        }
+
+        return listUser;
     }
 
     public User getUserById(long id){
-        return userRepository.findById(id);
+
+        User u = userRepository.findById(id);
+        if(u!=null){
+            u.setComments(commentServices.getCommentByUser(u.getId()));
+            u.setNotifications(notificationServices.getNotificationByUser(u.getId()));
+            u.setBorrows(borrowServices.borrowByUser(u.getId()));
+            u.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(u.getId()));
+        }
+        return u;
     }
 
-    public List<User> getUserByLogin(String login){
-        return userRepository.findAllByLogin(login);
+    public List<User> getUserByLogin(String login) {
+        List<User> listUser = userRepository.findAllByLogin(login);
+        if(listUser!=null){
+            for (User u : listUser) {
+                u.setComments(commentServices.getCommentByUser(u.getId()));
+                u.setNotifications(notificationServices.getNotificationByUser(u.getId()));
+                u.setBorrows(borrowServices.borrowByUser(u.getId()));
+                u.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(u.getId()));
+            }
+        }
+        return listUser;
     }
 
     public User getUserByEmail(String email){
-        return userRepository.findByEmail(email);
+        User u = userRepository.findByEmail(email);
+        if(u!=null) {
+            u.setComments(commentServices.getCommentByUser(u.getId()));
+            u.setNotifications(notificationServices.getNotificationByUser(u.getId()));
+            u.setBorrows(borrowServices.borrowByUser(u.getId()));
+            u.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(u.getId()));
+        }
+        return u;
     }
 
     public void delete(User user){

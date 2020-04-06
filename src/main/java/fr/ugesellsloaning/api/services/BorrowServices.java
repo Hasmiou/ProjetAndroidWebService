@@ -59,7 +59,16 @@ public class BorrowServices {
     public Borrow BorrowReturnedIsFalse(long product){
         return borrowRepostory.borrowIsFalse(product);
         }
+
+    public List<Borrow> borrowByUser(long user){
+        return borrowRepostory.borrowByUser(user);
     }
+
+    public List<Borrow> getBorrowByUser(long user){
+        return borrowRepostory.findBorrowByUser(user);
+    }
+    }
+
 
 
 

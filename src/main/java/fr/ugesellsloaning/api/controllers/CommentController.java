@@ -49,15 +49,20 @@ public class CommentController {
         //newMany.setOne(one); // Set the pa
 
         //Product product = productServices(comment.getProduct())
-        String email = "kanghebalde@mail.com";
+        String email = "kanghebalde1@gmail.com";
         User user = userServices.getUserByEmail(email);
-        comment.setUser(user);
+        comment.setUser(user.getId());
+        comment.setLastName(user.getLastName());
+        comment.setFirstName(user.getFirstName());
 
         commentServices.save(comment);
     }
 
     @GetMapping(path = "/{id}")
     public Optional<Comment> getById(@PathVariable(value = "id")  long id){ return  commentServices.getCommentById(id); }
+
+    @GetMapping(path = "/user/{user}")
+    public List<Comment> getByUser(@PathVariable(value = "user")  long user){ return  commentServices.getCommentByUser(user); }
 
 
     @PutMapping(value = "/")

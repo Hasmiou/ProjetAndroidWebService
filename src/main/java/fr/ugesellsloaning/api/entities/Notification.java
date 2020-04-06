@@ -22,6 +22,7 @@ public class Notification implements Serializable {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date d = new Date();
         createdAt = dateFormat.format(d).toString();
+
     }
 
 
@@ -33,6 +34,16 @@ public class Notification implements Serializable {
     String message;
     String createdAt;
 
+    long user;
+
+    long product;
+
+    String image;
+
+
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
     User user;
+
+     */
 }

@@ -15,6 +15,7 @@ public interface IProductRepository extends CrudRepository<Product, Long> {
     List<Product> findProductsByCategory(String category);
     Product findById(long id);
 
+
 /*
     @Query("select p from Product p where p.user.email = :currentUser")
     List<Product> findAllForCurrentUser(@Param("currentUser") String currentUser);

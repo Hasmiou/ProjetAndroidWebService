@@ -1,5 +1,6 @@
 package fr.ugesellsloaning.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -31,8 +32,14 @@ public class Borrow implements Serializable {
 
     long product;
 
+
+    long user;
+
+
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
     User user;
+    */
 
     @OneToOne(fetch = FetchType.LAZY)
     ReturnProduct returnProduct;

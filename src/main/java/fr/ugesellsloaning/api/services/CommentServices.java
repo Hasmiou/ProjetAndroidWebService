@@ -30,8 +30,12 @@ public class CommentServices {
     }
 
     public List<Comment> getCommentByProduct(long product){
-        return commentRepository.findCommentByProduct(product); }
+        return commentRepository.findCommentByProduct(product);
+    }
 
+    public List<Comment> getCommentByUser(long user){
+            return commentRepository.findCommentByUser(user);
+    }
 
 
 }

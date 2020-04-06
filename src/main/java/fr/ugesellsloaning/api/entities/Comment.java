@@ -3,6 +3,7 @@ package fr.ugesellsloaning.api.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,6 +17,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
@@ -45,12 +47,18 @@ public class Comment implements Serializable {
 
     long product;
 
+    String lastName;
 
+    String firstName;
+
+    long user;
+
+/*
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @Fetch(FetchMode.JOIN)
     User user;
-/*
+
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     //@JsonIgnore
     @Fetch(FetchMode.JOIN)

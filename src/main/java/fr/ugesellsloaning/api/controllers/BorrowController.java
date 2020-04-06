@@ -47,9 +47,9 @@ public class BorrowController {
 
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody  Borrow borrow){
-        String email = "kanghebalde@mail.com";
+        String email = "kanghebalde1@gmail.com";
         User user = userServices.getUserByEmail(email);
-        borrow.setUser(user);
+        borrow.setUser(user.getId());
         //borrow
         borrowServices.save(borrow);
 
