@@ -1,5 +1,6 @@
 package fr.ugesellsloaning.api.repositories;
 
+import fr.ugesellsloaning.api.entities.Notification;
 import fr.ugesellsloaning.api.entities.Product;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,6 +14,7 @@ public interface IProductRepository extends CrudRepository<Product, Long> {
     List<Product> findProductsByName(String name);
 
     List<Product> findProductsByCategory(String category);
+    List<Product> findProductsByUser(long user);
     Product findById(long id);
 
 

@@ -72,7 +72,7 @@ public class ProductController {
         //product.setImage(fileName);
         String email = "kanghebalde1@gmail.com";
         User user = userServices.getUserByEmail(email);
-        product.setUser(user);
+        product.setUser(user.getId());
         productServices.save(product);
 
     }

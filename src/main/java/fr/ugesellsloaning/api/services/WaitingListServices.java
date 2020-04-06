@@ -99,7 +99,7 @@ public class WaitingListServices {
             Product p = productServices.getProductById(product);
             String date = requestBorrowServices.getResquestBorrowByProductAndUser(product, u.getId()).getAskedAt();
 
-            String notification = "Le produit "+p.getName() +" est actuellement disponible vous pouvez l\\'emprunter dès maintentant";
+            String notification = "Le produit "+p.getName() +" est actuellement disponible vous pouvez l\'emprunter dès maintentant";
             Notification n =  new Notification();
             n.setMessage(notification);
             n.setUser(u.getId());

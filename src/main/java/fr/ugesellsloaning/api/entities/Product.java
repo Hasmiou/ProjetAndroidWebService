@@ -71,11 +71,13 @@ public class Product implements Serializable {
 
      */
 
+    long user;
+/*
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(nullable = true)
     @JsonBackReference(value = "user")
     User user;
-
+*/
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
    // @JsonBackReference(value = "comments")
     Collection<Comment> comments;

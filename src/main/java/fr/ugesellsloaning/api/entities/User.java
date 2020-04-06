@@ -98,7 +98,7 @@ public class User implements Serializable {
 
 
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     //@JsonBackReference(value = "user-product")
     Collection<Product> products;
 

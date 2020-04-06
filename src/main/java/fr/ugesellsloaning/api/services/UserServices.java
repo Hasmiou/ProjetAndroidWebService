@@ -29,6 +29,9 @@ public class UserServices{
     @Autowired
     RequestBorrowServices requestBorrowServices;
 
+    @Autowired
+    ProductServices productServices;
+
     public void save(User user){
         userRepository.save(user);
     }
@@ -40,7 +43,7 @@ public class UserServices{
             u.setNotifications(notificationServices.getNotificationByUser(u.getId()));
             u.setBorrows(borrowServices.borrowByUser(u.getId()));
             u.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(u.getId()));
-
+            u.setProducts(productServices.getProductByUser(u.getId()));
         }
 
         return listUser;
@@ -54,6 +57,7 @@ public class UserServices{
             u.setNotifications(notificationServices.getNotificationByUser(u.getId()));
             u.setBorrows(borrowServices.borrowByUser(u.getId()));
             u.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(u.getId()));
+            u.setProducts(productServices.getProductByUser(u.getId()));
         }
         return u;
     }
@@ -66,6 +70,7 @@ public class UserServices{
                 u.setNotifications(notificationServices.getNotificationByUser(u.getId()));
                 u.setBorrows(borrowServices.borrowByUser(u.getId()));
                 u.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(u.getId()));
+                u.setProducts(productServices.getProductByUser(u.getId()));
             }
         }
         return listUser;
@@ -78,6 +83,7 @@ public class UserServices{
             u.setNotifications(notificationServices.getNotificationByUser(u.getId()));
             u.setBorrows(borrowServices.borrowByUser(u.getId()));
             u.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(u.getId()));
+            u.setProducts(productServices.getProductByUser(u.getId()));
         }
         return u;
     }
