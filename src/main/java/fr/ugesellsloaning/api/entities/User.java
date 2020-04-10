@@ -20,6 +20,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.List;
 
 @FieldDefaults(level= AccessLevel.PRIVATE)
 @Getter
@@ -93,7 +94,14 @@ public class User implements Serializable {
 
     @JsonRawValue
     public int totalNotification(){
-        return notifications.size();
+        int total=0;
+        for (Notification n: notifications) {
+
+            //Notification Not Read
+            if(!n.isReadNotification()) total++;
+            
+        }
+        return total;
     }
 
 

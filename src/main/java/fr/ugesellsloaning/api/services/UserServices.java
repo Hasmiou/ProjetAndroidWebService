@@ -53,6 +53,7 @@ public class UserServices{
             u.setBorrows(borrowServices.borrowByUser(u.getId()));
             u.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(u.getId()));
             u.setProducts(productServices.getProductByUser(u.getId()));
+
         }
         return u;
     }
