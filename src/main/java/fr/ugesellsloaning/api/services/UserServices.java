@@ -1,16 +1,11 @@
 package fr.ugesellsloaning.api.services;
 
-import fr.ugesellsloaning.api.entities.Notification;
-import fr.ugesellsloaning.api.entities.RequestBorrow;
 import fr.ugesellsloaning.api.entities.User;
-import fr.ugesellsloaning.api.entities.WaitingList;
 import fr.ugesellsloaning.api.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Vector;
 
 @Service
 public class UserServices{
@@ -63,9 +58,9 @@ public class UserServices{
     }
 
     public List<User> getUserByLogin(String login) {
-        List<User> listUser = userRepository.findAllByLogin(login);
-        if(listUser!=null){
-            for (User u : listUser) {
+        List<User> listUsers = userRepository.findAllByLogin(login);
+        if(listUsers !=null){
+            for (User u : listUsers) {
                 u.setComments(commentServices.getCommentByUser(u.getId()));
                 u.setNotifications(notificationServices.getNotificationByUser(u.getId()));
                 u.setBorrows(borrowServices.borrowByUser(u.getId()));
@@ -73,7 +68,7 @@ public class UserServices{
                 u.setProducts(productServices.getProductByUser(u.getId()));
             }
         }
-        return listUser;
+        return listUsers;
     }
 
     public User getUserByEmail(String email){

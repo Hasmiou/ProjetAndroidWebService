@@ -43,7 +43,7 @@ public class NotificationServices {
     }
 
 
-    public void SendMailNotificationUtilisateur(User user,String object, String message) {
+    public void SendMailNotificationUtilisateur(User user, String object, String message) {
         //User u = userServices.getUserById(u)
         //Utilisateur u = utilisateurDao.GetUtilisateurById(IdUtilisateur);
         Properties props = new Properties();

@@ -1,9 +1,6 @@
 package fr.ugesellsloaning.api.repositories;
 
-import fr.ugesellsloaning.api.entities.Borrow;
-import fr.ugesellsloaning.api.entities.Comment;
 import fr.ugesellsloaning.api.entities.RequestBorrow;
-import fr.ugesellsloaning.api.entities.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

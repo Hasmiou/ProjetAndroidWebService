@@ -1,16 +1,12 @@
 package fr.ugesellsloaning.api.services;
 
-import fr.ugesellsloaning.api.entities.Borrow;
 import fr.ugesellsloaning.api.entities.Product;
-import fr.ugesellsloaning.api.entities.User;
 import fr.ugesellsloaning.api.repositories.IProductRepository;
 import fr.ugesellsloaning.api.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.Vector;
 
 @Service
