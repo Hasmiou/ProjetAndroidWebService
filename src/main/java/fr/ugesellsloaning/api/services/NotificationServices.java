@@ -30,8 +30,12 @@ public class NotificationServices {
         return notificationRepository.findAll();
     }
 
-    public Optional<Notification> getNotificationById(long id){
-        return notificationRepository.findById(id);
+    public Notification getNotificationById(long id){
+        Notification notification = notificationRepository.findById(id);
+        if(notification != null){
+            return notification;
+        }
+        return null;
     }
 
     public void delete(Notification notification){
