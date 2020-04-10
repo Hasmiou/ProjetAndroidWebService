@@ -89,7 +89,8 @@ public class ProductController {
 
 
     @GetMapping(path = "/key/{key}")
-    public List<Product> getByKey(@PathVariable(value = "key")  String key){ return  productServices.getProductsByKeyWord(key); }
+    public List<Product> getByKey(@PathVariable(value = "key")  String key){
+        return  productServices.getProductsByKeyWord(key.replace("%", " ")); }
 
 
     @GetMapping(path = "/category/{category}")

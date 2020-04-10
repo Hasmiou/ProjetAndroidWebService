@@ -99,7 +99,7 @@ public class User implements Serializable {
 
             //Notification Not Read
             if(!n.isReadNotification()) total++;
-            
+
         }
         return total;
     }

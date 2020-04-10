@@ -102,7 +102,7 @@ public class ProductServices {
         Iterable<Product> list= listProduct();
         Vector<Product> res =new Vector<Product>();
         for (Product product : list) {
-            if (product.getName().toLowerCase().contains(key) || product.getCategory().toLowerCase().contains(key) || product.getType().toLowerCase().contains(key))
+            if (product.getName().toLowerCase().contains(key.toLowerCase()) || product.getCategory().toLowerCase().contains(key.toLowerCase()) || product.getType().toLowerCase().contains(key.toLowerCase()))
                 res.add(product);
         }
         return res;
