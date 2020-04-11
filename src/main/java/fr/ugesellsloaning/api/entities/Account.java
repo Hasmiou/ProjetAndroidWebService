@@ -21,9 +21,9 @@ public class Account implements Serializable {
     long id;
 
     @NotBlank(message = "Balance cannot be null")
-    float solde;
+    double solde;
 
-    Date editedAt;
-    @OneToOne(fetch = FetchType.LAZY)
-    User user;
+    String editedAt;
+
+    long user;
 }

@@ -91,7 +91,6 @@ public class Product implements Serializable {
     @JsonIgnore
     Collection<RequestBorrow> requestBorrows;
 
-
 /*
 
     public Product(long i, String nom, String catgor, String type, String description, double v, String etat, boolean b, Date date) {

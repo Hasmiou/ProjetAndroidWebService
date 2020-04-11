@@ -93,6 +93,9 @@ public class User implements Serializable {
     }
 
     @JsonRawValue
+    int totalCart;
+
+    @JsonRawValue
     public int totalNotification(){
         int total=0;
         for (Notification n: notifications) {
@@ -111,15 +114,13 @@ public class User implements Serializable {
     Collection<Product> products;
 
 
-
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JsonBackReference(value = "user-comment")
     Collection<Comment> comments;
 
 
-    @OneToOne(mappedBy = "user",cascade = {CascadeType.ALL}, optional = true, fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.ALL}, optional = true, fetch = FetchType.LAZY)
     @JoinColumn(nullable = true)
-    @JsonBackReference(value = "user-account")
     Account account;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
@@ -133,4 +134,5 @@ public class User implements Serializable {
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JsonBackReference(value = "user-request")
     Collection<RequestBorrow> requestBorrows;
+
 }
