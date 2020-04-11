@@ -35,7 +35,6 @@ public class ProductServices {
     public Iterable<Product> listProduct(){
 
         Iterable<Product> list = productRepostory.findAll();
-
             for (Product p : list) {
                 p.setComments(commentServices.getCommentByProduct(p.getId()));
                 p.setBorrows(borrowServices.getBorrowByProduct(p.getId()));
@@ -47,38 +46,31 @@ public class ProductServices {
 
     public Product getProductById(long id){
 
-        Product p = productRepostory.findById(id);
-        if(p!=null){
-            p.setComments(commentServices.getCommentByProduct(p.getId()));
-            p.setBorrows(borrowServices.getBorrowByProduct(p.getId()));
-            p.setRequestBorrows(requestBorrowServices.getRequestBorrowByProduct(p.getId()));
+        Product product = productRepostory.findById(id);
+        if(product!=null){
+            product.setComments(commentServices.getCommentByProduct(product.getId()));
+            product.setBorrows(borrowServices.getBorrowByProduct(product.getId()));
+            product.setRequestBorrows(requestBorrowServices.getRequestBorrowByProduct(product.getId()));
         }
-        return p;
+        return product;
     }
 
     public List<Product> getProductByCategory(String category){
         List<Product> list = productRepostory.findProductsByCategory(category);
-        if(list!=null) {
-            for (Product p : list) {
-                p.setComments(commentServices.getCommentByProduct(p.getId()));
-                p.setBorrows( borrowServices.getBorrowByProduct(p.getId()));
-                p.setRequestBorrows(requestBorrowServices.getRequestBorrowByProduct(p.getId()));
-            }
-        }
-        return list;
+        return getProducts(list);
     }
+
+
+
+    public List<Product> getProductByType(String type){
+        List<Product> list = productRepostory.findProductsByType(type);
+        return getProducts(list);
+    }
+
 
     public  List<Product> getProductByName(String name){
         List<Product> list = productRepostory.findProductsByName(name);
-        if(list!=null){
-            for (Product p:list) {
-                p.setComments(commentServices.getCommentByProduct(p.getId()));
-                p.setBorrows((borrowServices.getBorrowByProduct(p.getId())));
-                p.setRequestBorrows(requestBorrowServices.getRequestBorrowByProduct(p.getId()));
-            }
-        }
-
-        return list;
+        return getProducts(list);
     }
 
 
@@ -110,10 +102,15 @@ public class ProductServices {
 
     public List<Product> getProductByUser(long user){
         List<Product> list = productRepostory.findProductsByUser(user);
-        if(list!=null){
+        return getProducts(list);
+    }
+
+    //Get Products
+    private List<Product> getProducts(List<Product> list) {
+        if(list!=null) {
             for (Product p : list) {
                 p.setComments(commentServices.getCommentByProduct(p.getId()));
-                p.setBorrows((borrowServices.getBorrowByProduct(p.getId())));
+                p.setBorrows( borrowServices.getBorrowByProduct(p.getId()));
                 p.setRequestBorrows(requestBorrowServices.getRequestBorrowByProduct(p.getId()));
             }
         }

@@ -96,6 +96,9 @@ public class ProductController {
     @GetMapping(path = "/category/{category}")
     public List<Product> getByCategory(@PathVariable(value = "category")  String category){ return  productServices.getProductByCategory(category); }
 
+    @GetMapping(path = "/type/{type}")
+    public List<Product> getByType(@PathVariable(value = "type")  String type){ return  productServices.getProductByType(type); }
+
     @PutMapping(value = "/")
     //@PreAuthorize("hasAuthority('ADMIN') || (returnObject != null && returnObject.getUser().getEmail() == authentication.principal)")
     public void edit(@Valid @RequestBody Product product) throws Exception {
