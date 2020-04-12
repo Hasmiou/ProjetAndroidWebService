@@ -96,13 +96,15 @@ public class User implements Serializable {
     int totalCart;
 
     @JsonRawValue
+    int totalWishlist;
+
+    @JsonRawValue
     public int totalNotification(){
         int total=0;
         for (Notification n: notifications) {
 
             //Notification Not Read
             if(!n.isReadNotification()) total++;
-
         }
         return total;
     }

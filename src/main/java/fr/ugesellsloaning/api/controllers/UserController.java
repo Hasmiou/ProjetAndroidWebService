@@ -6,7 +6,10 @@ import fr.ugesellsloaning.api.services.AccountServices;
 import fr.ugesellsloaning.api.services.UserServices;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,11 +58,13 @@ public class UserController {
     @PostMapping("/login")
     public int login(@RequestBody User user){
         User user1 = userServices.getUserByEmail(user.getEmail());
+
         if(user1 != null){
             //String password = passwordEncoder.encode(user.getPassword());
             //System.out.println(password);
             System.out.println(user1.getPassword());
             //User currentUser = (User)request.getAttribute("userName");
+
             if(user.getEmail().equals(user1.getEmail()) && user.getPassword().equals(user1.getPassword())) {
                 return (int) user1.getId();
             }
@@ -67,7 +72,40 @@ public class UserController {
         }
         return -2;
     }
+/*
+    @PostMapping("/test")
+    public int logintest(@RequestBody User user){
+        User user1 = userServices.getUserByEmail(user.getEmail());
+        ModelMap modelMap = new ModelMap();
+        if(user1 != null){
+            //String password = passwordEncoder.encode(user.getPassword());
+            //System.out.println(password);
+            System.out.println(user1.getPassword());
+            //User currentUser = (User)request.getAttribute("userName");
 
+            if(user.getEmail().equals(user1.getEmail()) && user.getPassword().equals(user1.getPassword())) {
+
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                auth.getPrincipal();
+                String name = auth.getName();
+                modelMap.addAttribute("username", name);
+
+
+
+                User user2 = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                String name = user2.getEmail(); //get logged in username
+
+                modelMap.addAttribute("username", name);
+
+              System.out.println(modelMap.getAttribute("username"));
+                return (int) user1.getId();
+            }
+            else return -1;
+        }
+        return -2;
+    }
+
+*/
 
     @GetMapping(path = "/user/{id}")
     public User getById(@PathVariable(value = "id")  long id){
