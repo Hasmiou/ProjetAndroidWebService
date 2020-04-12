@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,12 @@ public class UserController {
     @Autowired
     AccountServices accountServices;
 
-    @GetMapping(path = "/api/user/")
+
+    @Autowired
+    HttpServletRequest request;
+
+
+    @GetMapping(path = "/user/")
     public List<User> list(){
         return (List<User>) userServices.listUser();
     }
@@ -53,6 +59,7 @@ public class UserController {
             //String password = passwordEncoder.encode(user.getPassword());
             //System.out.println(password);
             System.out.println(user1.getPassword());
+            //User currentUser = (User)request.getAttribute("userName");
             if(user.getEmail().equals(user1.getEmail()) && user.getPassword().equals(user1.getPassword())) {
                 return (int) user1.getId();
             }
@@ -62,18 +69,18 @@ public class UserController {
     }
 
 
-    @GetMapping(path = "/api/user/{id}")
+    @GetMapping(path = "/user/{id}")
     public User getById(@PathVariable(value = "id")  long id){
         return  userServices.getUserById(id);
     }
 
-    @PutMapping(value = "/api/user/")
+    @PutMapping(value = "/user/edit/")
     public void edit(@Valid @RequestBody User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userServices.save(user);
     }
 
-    @DeleteMapping("/api/user/{id}")
+    @DeleteMapping("/user/{id}")
     public void deleteById(@PathVariable(value = "id")  long id){
         userServices.deleteById(id);
     }

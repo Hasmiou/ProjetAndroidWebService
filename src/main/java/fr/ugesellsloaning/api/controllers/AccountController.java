@@ -35,7 +35,6 @@ public class AccountController {
     public void add(@RequestBody Account account){
         String email = "kanghebalde1@gmail.com";
         User user = userServices.getUserByEmail(email);
-
         accountServices.creditAccount(user.getId(), account.getSolde());
     }
 

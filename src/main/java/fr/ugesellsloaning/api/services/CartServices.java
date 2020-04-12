@@ -24,6 +24,9 @@ public class CartServices {
     @Autowired
     AccountServices accountServices;
 
+    @Autowired
+    CartServices cartServices;
+
     public void save(Cart cart){
         iCartRepository.save(cart);
     }
@@ -77,6 +80,7 @@ public class CartServices {
             Date d = new Date();
             account.setEditedAt(dateFormat.format(d).toString());
             accountServices.save(account);
+            deleteByUser(user);
             return true;
         }
         return false;
