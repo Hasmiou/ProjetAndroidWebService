@@ -58,15 +58,8 @@ public class ProductController {
 
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody Product product){
-        //, @RequestParam("file") MultipartFile file
-        //String fileName = fileService.storeFile(file);
-        //log.info("Create product with image "+fileName);
-        /*ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();*/
-        //String username = request.getUserPrincipal().getName();
-        //log.info("Add product by "+username);
+        String username = request.getUserPrincipal().getName();
+        log.info("Add product by "+username);
         //User user = userServices.getUserByEmail(username);
         //product.setUser(user);
         //product.setImage(fileName);

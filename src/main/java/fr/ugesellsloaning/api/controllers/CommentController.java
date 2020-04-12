@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 @Api( tags={"Operations Commentaires \"Comment\""})
 @RestController
 @RequestMapping("/api/comment")
@@ -20,6 +21,8 @@ public class CommentController {
     @Autowired
     CommentServices commentServices;
 
+    @Autowired
+    HttpServletRequest request;
 
     @Autowired
     ProductServices productServices;
@@ -48,6 +51,9 @@ public class CommentController {
         //newMany.setOne(one); // Set the pa
 
         //Product product = productServices(comment.getProduct())
+        //String username = request .getUserPrincipal().getName();
+        //System.out.println("Add comment by "+username);
+
         String email = "kanghebalde1@gmail.com";
         User user = userServices.getUserByEmail(email);
         comment.setUser(user.getId());

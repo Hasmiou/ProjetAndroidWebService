@@ -29,6 +29,12 @@ public class CommentServices {
         commentRepository.deleteById(id);
     }
 
+    public void deleteByProduct(long product){
+        List<Comment> comments = getCommentByProduct(product);
+        for (Comment comment: comments) {
+            deleteById(comment.getId());
+        }
+    }
     public List<Comment> getCommentByProduct(long product){
         return commentRepository.findCommentByProduct(product);
     }

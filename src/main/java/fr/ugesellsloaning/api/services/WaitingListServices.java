@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.Vector;
 
@@ -108,5 +109,8 @@ public class WaitingListServices {
 
     }
 
+    public void deleteByProduct(long product){
+       iWaitingList.deleteById(getWaitingListByProduct(product).getId());
+    }
 
 }
