@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServices{
@@ -55,7 +56,7 @@ public class UserServices{
     }
 
     public User getUserByEmail(String email){
-        User user = userRepository.findByEmail(email);
+      User user = userRepository.findUserByEmail(email);
         return getUser(user);
     }
 
@@ -72,16 +73,17 @@ public class UserServices{
     }
 
     private User getUser(User user){
-        if(user!=null) {
-            user.setComments(commentServices.getCommentByUser(user.getId()));
-            user.setNotifications(notificationServices.getNotificationByUser(user.getId()));
-            user.setBorrows(borrowServices.borrowByUser(user.getId()));
-            user.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(user.getId()));
-            user.setProducts(productServices.getProductByUser(user.getId()));
-            user.setTotalCart(cartServices.getProductInCart(user.getId()).size());
-            user.setTotalWishlist(wishlistServices.getProductInWishlist(user.getId()).size());
+            if(user!=null) {
+                user.setComments(commentServices.getCommentByUser(user.getId()));
+                user.setNotifications(notificationServices.getNotificationByUser(user.getId()));
+                user.setBorrows(borrowServices.borrowByUser(user.getId()));
+                user.setRequestBorrows(requestBorrowServices.getRequestBorrowByUserStatusIsFalse(user.getId()));
+                user.setProducts(productServices.getProductByUser(user.getId()));
+                user.setTotalCart(cartServices.getProductInCart(user.getId()).size());
+                user.setTotalWishlist(wishlistServices.getProductInWishlist(user.getId()).size());
 
-        }
+            }
+
         return user;
     }
 

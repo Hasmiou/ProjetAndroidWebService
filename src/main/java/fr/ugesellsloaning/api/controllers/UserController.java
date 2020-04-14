@@ -6,6 +6,7 @@ import fr.ugesellsloaning.api.services.AccountServices;
 import fr.ugesellsloaning.api.services.UserServices;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -24,8 +26,11 @@ public class UserController {
     @Autowired
     UserServices userServices;
 
+    /*
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
+
+     */
 
     @Autowired
     AccountServices accountServices;
@@ -33,6 +38,9 @@ public class UserController {
 
     @Autowired
     HttpServletRequest request;
+
+
+    Principal principal;
 
 
     @GetMapping(path = "/user/")
@@ -55,6 +63,7 @@ public class UserController {
     }
 
 
+
     @PostMapping("/login")
     public int login(@RequestBody User user){
         User user1 = userServices.getUserByEmail(user.getEmail());
@@ -72,32 +81,21 @@ public class UserController {
         }
         return -2;
     }
-/*
-    @PostMapping("/test")
+
+    /*
+
+    @PostMapping("/secured/test")
     public int logintest(@RequestBody User user){
         User user1 = userServices.getUserByEmail(user.getEmail());
-        ModelMap modelMap = new ModelMap();
-        if(user1 != null){
+
+       if(user1 != null){
             //String password = passwordEncoder.encode(user.getPassword());
             //System.out.println(password);
             System.out.println(user1.getPassword());
             //User currentUser = (User)request.getAttribute("userName");
 
             if(user.getEmail().equals(user1.getEmail()) && user.getPassword().equals(user1.getPassword())) {
-
-                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                auth.getPrincipal();
-                String name = auth.getName();
-                modelMap.addAttribute("username", name);
-
-
-
-                User user2 = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                String name = user2.getEmail(); //get logged in username
-
-                modelMap.addAttribute("username", name);
-
-              System.out.println(modelMap.getAttribute("username"));
+                System.out.println("user current " + principal.getName());
                 return (int) user1.getId();
             }
             else return -1;
@@ -105,7 +103,24 @@ public class UserController {
         return -2;
     }
 
+
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/secured/all")
+    public String securedHello() {
+        principal = request.getUserPrincipal();
+        System.out.println("Secured Hello" + principal.getName());
+        return principal.getName();
+    }
+
+    @GetMapping("/secured/test/")
+    public String securedHell() {
+        principal = request.getUserPrincipal();
+        System.out.println("Secured Hello" + principal.getName());
+        return principal.getName();
+    }
 */
+
 
     @GetMapping(path = "/user/{id}")
     public User getById(@PathVariable(value = "id")  long id){
@@ -114,7 +129,7 @@ public class UserController {
 
     @PutMapping(value = "/user/edit/")
     public void edit(@Valid @RequestBody User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         userServices.save(user);
     }
 
