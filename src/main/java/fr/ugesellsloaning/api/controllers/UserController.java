@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +27,11 @@ public class UserController {
     @Autowired
     UserServices userServices;
 
-    /*
+
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
-     */
+
 
     @Autowired
     AccountServices accountServices;
@@ -43,6 +44,9 @@ public class UserController {
     Principal principal;
 
 
+     UserDetails userDetails;
+
+
     @GetMapping(path = "/user/")
     public List<User> list(){
         return (List<User>) userServices.listUser();
@@ -50,7 +54,7 @@ public class UserController {
 
     @PostMapping(path = "/register")
     public void register(@Valid @RequestBody User user){
-      //  user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userServices.save(user);
 
         if(user.getRole().equals("Customer")){
@@ -82,7 +86,7 @@ public class UserController {
         return -2;
     }
 
-    /*
+
 
     @PostMapping("/secured/test")
     public int logintest(@RequestBody User user){
@@ -105,9 +109,10 @@ public class UserController {
 
 
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+   // @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/secured/all")
     public String securedHello() {
+
         principal = request.getUserPrincipal();
         System.out.println("Secured Hello" + principal.getName());
         return principal.getName();
@@ -119,7 +124,7 @@ public class UserController {
         System.out.println("Secured Hello" + principal.getName());
         return principal.getName();
     }
-*/
+
 
 
     @GetMapping(path = "/user/{id}")

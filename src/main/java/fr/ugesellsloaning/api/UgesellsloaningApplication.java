@@ -17,11 +17,10 @@ public class UgesellsloaningApplication {
 		SpringApplication.run(UgesellsloaningApplication.class, args);
 	}
 
-/*
+
 	@Bean(name="passwordEncoder")
 	public BCryptPasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
-*/
 
 }
