@@ -42,7 +42,7 @@ public class CartController {
         return cartServices.getProductInCart(user.getId()).size();
     }
 
-    @GetMapping(path = "/{product}")
+    @GetMapping(path = "add/{product}")
     public int add(@PathVariable(value = "product")  long product ){
         //current User
         boolean exist=false;
