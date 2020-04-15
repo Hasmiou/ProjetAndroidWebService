@@ -41,6 +41,7 @@ public class AccountServices {
 
     }
 
+
     public Account getAccountByUser(long user){
         return accountRepostory.findAccountByUser(user);
     }

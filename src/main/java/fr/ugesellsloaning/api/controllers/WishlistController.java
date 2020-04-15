@@ -35,26 +35,27 @@ public class WishlistController {
         return wishlistServices.wishlists();
     }
 
-    @GetMapping(path = "/totalCart/")
+    @GetMapping(path = "/totalWihslist/")
     public int getTotalWislhist(){
-        String email =  "fati@gmail.com";
+        String email =  "fati2@gmail.com";
         User user = userServices.getUserByEmail(email);
         return wishlistServices.getProductInWishlist(user.getId()).size();
     }
 
-    @PostMapping(path = "/")
-    public int add(@Valid @RequestBody Wishlist wishlist){
+    @GetMapping(path  = "add/{product}")
+    public int add(@PathVariable(value = "product")  long product){
         //current Use
         boolean exist=false;
 
-        String email = "fati@gmail.com";
+        String email = "fati2@gmail.com";
         User user = userServices.getUserByEmail(email);
 
-        Product product = productServices.getProductById(wishlist.getProduct());
+        Product product1 = productServices.getProductById(product);
 
-        if(product!=null){
+        if(product1!=null){
+            Wishlist wishlist = new Wishlist();
             wishlist.setUser(user.getId());
-            wishlist.setProduct(product.getId());
+            wishlist.setProduct(product);
 
             List<Wishlist> wishlists = wishlistServices.getWishlistByUser(user.getId());
             for (Wishlist wishlist1: wishlists) {
@@ -74,14 +75,14 @@ public class WishlistController {
 
     @GetMapping(path = "/productInWishlist/")
     public List<Product> getByUser(){
-        String email = "fati@gmail.com";
+        String email = "fati2@gmail.com";
         User user = userServices.getUserByEmail(email);
         return wishlistServices.getProductInWishlist(user.getId());
     }
 
     @DeleteMapping("/deleteAll/")
     public int deleteCartByUser(){
-        String email = "fati@gmail.com";
+        String email = "fati2@gmail.com";
         User user = userServices.getUserByEmail(email);
         wishlistServices.deleteByUser(user.getId());
 
@@ -90,7 +91,7 @@ public class WishlistController {
 
     @DeleteMapping("/product/{product}")
     public int deleteProductInWishlist(@PathVariable(value = "product")  long product){
-        String email = "fati@gmail.com";
+        String email = "fati2@gmail.com";
         User user = userServices.getUserByEmail(email);
 
         wishlistServices.deleteByProduct(product);
@@ -100,7 +101,7 @@ public class WishlistController {
 
     @GetMapping(path = "/addInCart/")
     public int addWishlistInCart(){
-        String email ="fati@gmail.com";
+        String email ="fati2@gmail.com";
         User user = userServices.getUserByEmail(email);
         wishlistServices.addInCart(user.getId());
         return wishlistServices.getProductInWishlist(user.getId()).size();

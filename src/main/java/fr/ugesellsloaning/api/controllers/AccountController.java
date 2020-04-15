@@ -32,10 +32,19 @@ public class AccountController {
 
     @ApiOperation(value = "Crediter Mon compte")
     @PostMapping(path = "/credit/")
-    public void add(@RequestBody Account account){
-        String email = "fati@gmail.com";
+    public double add(@RequestBody Account account){
+        String email = "fati2@gmail.com";
         User user = userServices.getUserByEmail(email);
         accountServices.creditAccount(user.getId(), account.getSolde());
+        return accountServices.getSolde(user.getId());
+    }
+
+    @ApiOperation(value = "Mon Solde")
+    @GetMapping(path = "/solde/")
+    public double getSolde(){
+        String email = "fati2@gmail.com";
+        User user = userServices.getUserByEmail(email);
+       return accountServices.getSolde(user.getId());
     }
 
     @ApiOperation(value = "Récupèration d'un compte")
