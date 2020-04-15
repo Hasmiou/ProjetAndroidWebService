@@ -60,10 +60,6 @@ public class ProductController {
     }
 */
 
-
-
-
-
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody Product product, Principal principal){
 

@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.awt.print.Pageable;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -36,8 +37,6 @@ public class swaggerConfiguration {
                 .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.ZonedDateTime.class, Date.class)
                 .directModelSubstitute(java.time.LocalDateTime.class, Date.class)
-                //.securityContexts(Lists.newArrayList(securityContext()))
-                //.securitySchemes(Lists.newArrayList(apiKey()))
                 .useDefaultResponseMessages(false);
 
         docket = docket.select()
@@ -46,8 +45,6 @@ public class swaggerConfiguration {
                 .build();
         return  docket;
         }
-
-
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("REST API - University Gustave Effeil")
@@ -64,21 +61,4 @@ public class swaggerConfiguration {
                 .build();
     }
 
-    private ApiKey apiKey() {
-        return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
-    }
-
-    private SecurityContext securityContext() {
-        return SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex(DEFAULT_INCLUDE_PATTERN))
-                .build();
-    }
-
-    private List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        return Lists.newArrayList(new SecurityReference("JWT", authorizationScopes));
-    }
 }
