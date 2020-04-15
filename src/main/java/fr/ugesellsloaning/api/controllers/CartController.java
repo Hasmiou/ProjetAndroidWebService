@@ -2,6 +2,7 @@ package fr.ugesellsloaning.api.controllers;
 
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
+import fr.ugesellsloaning.api.converter.Converter;
 import fr.ugesellsloaning.api.entities.*;
 import fr.ugesellsloaning.api.services.CartServices;
 import fr.ugesellsloaning.api.services.ProductServices;
@@ -41,32 +42,34 @@ public class CartController {
         return cartServices.getProductInCart(user.getId()).size();
     }
 
-    @PostMapping(path = "/")
-    public int add(@Valid @RequestBody  Cart cart){
-        //current Use
+    @GetMapping(path = "/{product}")
+    public int add(@PathVariable(value = "product")  long product ){
+        //current User
         boolean exist=false;
 
         String email = "fati@gmail.com";
         User user = userServices.getUserByEmail(email);
 
-        Product product = productServices.getProductById(cart.getProduct());
+        Product product1 = productServices.getProductById(product);
+        if(product1 != null){
+            Cart cart = new Cart();
+            cart.setUser(user.getId());
+            cart.setProduct(product);
 
-        cart.setUser(user.getId());
-        cart.setProduct(product.getId());
-
-        List<Cart> carts = cartServices.getCartByUser(user.getId());
-        for (Cart cart1: carts) {
-            if(cart1.getProduct() == cart.getProduct() && cart1.getUser() == cart.getUser()){
-                exist = true;
+            List<Cart> carts = cartServices.getCartByUser(user.getId());
+            for (Cart cart1: carts) {
+                if(cart1.getProduct() == cart.getProduct() && cart1.getUser() == cart.getUser()){
+                    exist = true;
+                }
             }
+            if(exist == false) cartServices.save(cart);
         }
-        if(exist == false) cartServices.save(cart);
-
         return cartServices.getProductInCart(user.getId()).size();
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/id/{id}")
     public Optional<Cart> getById(@PathVariable(value = "id")  long id){ return  cartServices.getCartById(id); }
+
 
 
     @GetMapping(path = "/productInCart/")
@@ -95,13 +98,22 @@ public class CartController {
         return cartServices.getProductInCart(user.getId()).size();
     }
 
-    @PostMapping(path = "/buy/")
-    public boolean buyCart(@RequestBody  double amount){
-        String email = "fati@gmail.com";
+    @GetMapping(path = "/buy/")
+    public boolean buyCart(){
+        Double amount = 0.0;
+        String email =  "fati@gmail.com";
         User user = userServices.getUserByEmail(email);
-        return cartServices.confirmPurchase(user.getId(), amount);
+        if(user != null){
+            List<Product> productList = cartServices.getProductInCart(user.getId());
+            for (Product product : productList){
+                amount= amount + product.getPrice();
+            }
+            return cartServices.confirmPurchase(user.getId(), amount);
+        }
+        return false;
     }
 
+    /*
     @GetMapping(path = "/buy/{user}")
     public boolean buyCart(@PathVariable(value = "user")  long user){
         Double amount = 0.0;
@@ -116,6 +128,8 @@ public class CartController {
         }
         return false;
     }
+
+     */
 
 
 }

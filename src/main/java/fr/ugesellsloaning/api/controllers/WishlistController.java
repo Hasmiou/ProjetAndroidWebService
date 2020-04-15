@@ -35,26 +35,27 @@ public class WishlistController {
         return wishlistServices.wishlists();
     }
 
-    @GetMapping(path = "/totalCart/")
+    @GetMapping(path = "/totalWihslist/")
     public int getTotalWislhist(){
         String email =  "fati@gmail.com";
         User user = userServices.getUserByEmail(email);
         return wishlistServices.getProductInWishlist(user.getId()).size();
     }
 
-    @PostMapping(path = "/")
-    public int add(@Valid @RequestBody Wishlist wishlist){
+    @GetMapping(path  = "/{product}")
+    public int add(@PathVariable(value = "product")  long product){
         //current Use
         boolean exist=false;
 
         String email = "fati@gmail.com";
         User user = userServices.getUserByEmail(email);
 
-        Product product = productServices.getProductById(wishlist.getProduct());
+        Product product1 = productServices.getProductById(product);
 
-        if(product!=null){
+        if(product1!=null){
+            Wishlist wishlist = new Wishlist();
             wishlist.setUser(user.getId());
-            wishlist.setProduct(product.getId());
+            wishlist.setProduct(product);
 
             List<Wishlist> wishlists = wishlistServices.getWishlistByUser(user.getId());
             for (Wishlist wishlist1: wishlists) {
