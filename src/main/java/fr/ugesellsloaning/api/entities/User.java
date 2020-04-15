@@ -38,12 +38,7 @@ public class User implements Serializable {
         java.util.Date d = new java.util.Date();
         updatedAt = dateFormat.format(d).toString();
         NberOfTimesToBorrow = 0;
-<<<<<<< HEAD
-        isActive = true;
-=======
         this.isActive=true;
-
->>>>>>> master
     }
 
     public User(User user) {
