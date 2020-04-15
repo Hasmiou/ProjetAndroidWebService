@@ -105,10 +105,12 @@ public class CartController {
         User user = userServices.getUserByEmail(email);
         if(user != null){
             List<Product> productList = cartServices.getProductInCart(user.getId());
-            for (Product product : productList){
-                amount= amount + product.getPrice();
+            if (productList != null){
+                for (Product product : productList){
+                    amount= amount + product.getPrice();
+                }
+                return cartServices.confirmPurchase(user.getId(), amount);
             }
-            return cartServices.confirmPurchase(user.getId(), amount);
         }
         return false;
     }
