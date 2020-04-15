@@ -4,6 +4,7 @@ import fr.ugesellsloaning.api.entities.Product;
 import fr.ugesellsloaning.api.entities.User;
 import fr.ugesellsloaning.api.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class UserServices{
 
     @Autowired
     CommentServices commentServices;
+
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     NotificationServices notificationServices;
@@ -37,6 +41,7 @@ public class UserServices{
     WishlistServices wishlistServices;
 
     public void save(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -53,6 +58,10 @@ public class UserServices{
     public List<User> getUserByLogin(String login) {
         List<User> listUsers = userRepository.findAllByLogin(login);
         return getUsers(listUsers);
+    }
+
+    public Optional<User> getByLoginQuery(String login){
+        return  userRepository.loginQuery(login);
     }
 
     public User getUserByEmail(String email){

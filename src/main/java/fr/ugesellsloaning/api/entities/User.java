@@ -3,24 +3,23 @@ package fr.ugesellsloaning.api.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRawValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @FieldDefaults(level= AccessLevel.PRIVATE)
@@ -30,7 +29,6 @@ import java.util.Set;
 @ToString
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-//@ApiModel("User")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User implements Serializable {
 
@@ -85,6 +83,9 @@ public class User implements Serializable {
     @Size(min=6, max = 255, message = "Le mot de passe doit avoir au moins 6 caractère")
     @Column(length = 255, nullable = false)
     String password;
+
+    @Column
+    boolean isActive;
 
     @Column
     String phone;

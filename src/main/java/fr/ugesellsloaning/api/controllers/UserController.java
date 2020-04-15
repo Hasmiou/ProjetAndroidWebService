@@ -6,23 +6,18 @@ import fr.ugesellsloaning.api.services.AccountServices;
 import fr.ugesellsloaning.api.services.UserServices;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Api( tags={"Operations Utilisateur \"User\""})
 @RestController
-@RequestMapping("/api")
+//@RequestMapping("/api")
 public class UserController {
     @Autowired
     UserServices userServices;
@@ -44,17 +39,16 @@ public class UserController {
     Principal principal;
 
 
-     UserDetails userDetails;
 
-
-    @GetMapping(path = "/user/")
+    @GetMapping(path = "/api/user")
     public List<User> list(){
         return (List<User>) userServices.listUser();
     }
 
+
     @PostMapping(path = "/register")
     public void register(@Valid @RequestBody User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         userServices.save(user);
 
         if(user.getRole().equals("Customer")){
@@ -62,12 +56,31 @@ public class UserController {
             account.setUser(user.getId());
             accountServices.save(account);
         }
+    }
 
-        //System.out.println("la date du jour est :" + new Date());
+    @GetMapping(path = "/api/user/{id}")
+    public User getById(@PathVariable(value = "id")  long id){
+        return  userServices.getUserById(id);
+    }
+
+    @GetMapping(path = "/api/user/current-user")
+    public Optional<User> getCurrentUser(Principal principal){
+        return userServices.getByLoginQuery(principal.getName());
+    }
+
+    @PutMapping(value = "/api/user/edit/")
+    public void edit(@Valid @RequestBody User user){
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userServices.save(user);
+    }
+
+    @DeleteMapping("/api/user/{id}")
+    public void deleteById(@PathVariable(value = "id")  long id){
+        userServices.deleteById(id);
     }
 
 
-
+    /*
     @PostMapping("/login")
     public int login(@RequestBody User user){
         User user1 = userServices.getUserByEmail(user.getEmail());
@@ -84,7 +97,7 @@ public class UserController {
             else return -1;
         }
         return -2;
-    }
+    }*/
 
 
 
@@ -127,19 +140,5 @@ public class UserController {
 
 
 
-    @GetMapping(path = "/user/{id}")
-    public User getById(@PathVariable(value = "id")  long id){
-        return  userServices.getUserById(id);
-    }
 
-    @PutMapping(value = "/user/edit/")
-    public void edit(@Valid @RequestBody User user){
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userServices.save(user);
-    }
-
-    @DeleteMapping("/user/{id}")
-    public void deleteById(@PathVariable(value = "id")  long id){
-        userServices.deleteById(id);
-    }
 }
