@@ -1,7 +1,9 @@
 package fr.ugesellsloaning.api.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.ugesellsloaning.api.entities.User;
 import fr.ugesellsloaning.api.services.UserDetailsServiceImpl;
+import fr.ugesellsloaning.api.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -24,6 +26,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
+import java.util.Optional;
 
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -42,6 +46,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    UserServices userServices;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -108,8 +115,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             HttpServletResponse response,
             Authentication authentication) throws IOException {
 
-        response.setStatus(HttpStatus.OK.value());
-        objectMapper.writeValue(response.getWriter(), "successful");
+            response.setStatus(HttpStatus.OK.value());
+            String login = authentication.getName();
+            User u = userServices.getUserByLogin(login);
+            objectMapper.writeValue(response.getWriter(), u.getId() );
     }
 
     private void loginFailureHandler(
@@ -117,8 +126,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             HttpServletResponse response,
             AuthenticationException e) throws IOException {
 
+        
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        objectMapper.writeValue(response.getWriter(), "error");
+        objectMapper.writeValue(response.getWriter(), "error" );
     }
 
 }
