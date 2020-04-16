@@ -126,9 +126,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             HttpServletResponse response,
             AuthenticationException e) throws IOException {
 
-        
+
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        objectMapper.writeValue(response.getWriter(), "error" );
+        objectMapper.writeValue(response.getWriter(), -1 );
     }
 
 }
