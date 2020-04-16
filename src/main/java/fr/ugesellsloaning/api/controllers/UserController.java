@@ -80,7 +80,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     public int login(@RequestBody User user){
         User user1 = userServices.getUserByEmail(user.getEmail());
 

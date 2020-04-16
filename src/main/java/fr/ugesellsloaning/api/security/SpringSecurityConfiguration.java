@@ -19,7 +19,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String ADMIN = "ADMIN";
     private static final String USER = "USER";
-    private static final String DEFAULT_INCLUDE_PATTERN = "/api/**";
+    private static final String DEFAULT_INCLUDE_PATTERN = "/secured/**";
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -54,7 +54,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("**/*.js").permitAll()
                 //*** End Swagger conf
                 //.anyRequest().authenticated()
-                .anyRequest().permitAll()
+                //.anyRequest().permitAll()
                 .and().formLogin()
                 .and().logout().logoutUrl("/logout")
                 .and()
