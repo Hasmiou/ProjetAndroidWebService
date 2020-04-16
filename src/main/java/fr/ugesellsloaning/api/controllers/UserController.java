@@ -2,16 +2,23 @@ package fr.ugesellsloaning.api.controllers;
 
 import fr.ugesellsloaning.api.entities.Account;
 import fr.ugesellsloaning.api.entities.User;
+import fr.ugesellsloaning.api.security.SpringSecurityConfiguration;
 import fr.ugesellsloaning.api.services.AccountServices;
 import fr.ugesellsloaning.api.services.UserServices;
 import io.swagger.annotations.Api;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +43,13 @@ public class UserController {
     HttpServletRequest request;
 
 
+    @Autowired
+    SpringSecurityConfiguration springSecurityConfiguration;
+
     Principal principal;
 
+
+    Authentication authentication;
 
 
     @GetMapping(path = "/api/user")
@@ -45,17 +57,10 @@ public class UserController {
         return (List<User>) userServices.listUser();
     }
 
-
     @PostMapping(path = "/register")
-    public void register(@Valid @RequestBody User user){
+    public boolean register(@Valid @RequestBody User user){
         //user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userServices.save(user);
-
-        if(user.getRole().equals("Customer")){
-            Account account = new Account();
-            account.setUser(user.getId());
-            accountServices.save(account);
-        }
+       return userServices.save(user);
     }
 
     @GetMapping(path = "/api/user/{id}")
@@ -78,28 +83,7 @@ public class UserController {
     public void deleteById(@PathVariable(value = "id")  long id){
         userServices.deleteById(id);
     }
-
-
-    @PostMapping("/login")
-    public int login(@RequestBody User user){
-        User user1 = userServices.getUserByEmail(user.getEmail());
-
-        if(user1 != null){
-            //String password = passwordEncoder.encode(user.getPassword());
-            //System.out.println(password);
-            System.out.println(user1.getPassword());
-            //User currentUser = (User)request.getAttribute("userName");
-
-            if(user.getEmail().equals(user1.getEmail()) && user.getPassword().equals(user1.getPassword())) {
-                return (int) user1.getId();
-            }
-            else return -1;
-        }
-        return -2;
-    }
-
-
-
+    /*
     @PostMapping("/secured/test")
     public int logintest(@RequestBody User user){
         User user1 = userServices.getUserByEmail(user.getEmail());
@@ -119,23 +103,7 @@ public class UserController {
         return -2;
     }
 
-
-
-   // @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("/secured/all")
-    public String securedHello() {
-
-        principal = request.getUserPrincipal();
-        System.out.println("Secured Hello" + principal.getName());
-        return principal.getName();
-    }
-
-    @GetMapping("/secured/test/")
-    public String securedHell() {
-        principal = request.getUserPrincipal();
-        System.out.println("Secured Hello" + principal.getName());
-        return principal.getName();
-    }
+     */
 
 
 

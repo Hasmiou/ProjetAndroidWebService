@@ -37,26 +37,10 @@ public class CommentController {
 
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody  Comment comment){
-       // product.setUser(user);
-        //product.setImage(fileName);
-        //User user = userServices.getUserByEmail(username);
-        //long id=3;
-        // Optional<Product> product = productServices.getProductById(id);
-        //comment.setProduct(product.get());
 
-
-       // One one = oneRepository(many.getOne_id()); //Get the parent Object
-        //Many newMany  = new Many(); //Create a new Many object
-        //newMany.setName(many.getName());
-        //newMany.setOne(one); // Set the pa
-
-        //Product product = productServices(comment.getProduct())
-        //String username = request .getUserPrincipal().getName();
-        //System.out.println("Add comment by "+username);
-
-        String email = "kanghebalde1@gmail.com";
-        User user = userServices.getUserByEmail(email);
-        comment.setUser(user.getId());
+        //String email = "kanghebalde1@gmail.com";
+        User user = userServices.getUserById(comment.getUser());
+        //comment.setUser(user.getId());
         comment.setLastName(user.getLastName());
         comment.setFirstName(user.getFirstName());
 
