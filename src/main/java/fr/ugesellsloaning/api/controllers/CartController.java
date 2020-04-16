@@ -9,7 +9,6 @@ import fr.ugesellsloaning.api.services.ProductServices;
 import fr.ugesellsloaning.api.services.UserServices;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

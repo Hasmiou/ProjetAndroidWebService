@@ -80,8 +80,7 @@ public class UserController {
     }
 
 
-    /*
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public int login(@RequestBody User user){
         User user1 = userServices.getUserByEmail(user.getEmail());
 
@@ -97,7 +96,7 @@ public class UserController {
             else return -1;
         }
         return -2;
-    }*/
+    }
 
 
 

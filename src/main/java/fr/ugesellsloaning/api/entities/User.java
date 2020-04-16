@@ -39,7 +39,6 @@ public class User implements Serializable {
         updatedAt = dateFormat.format(d).toString();
         NberOfTimesToBorrow = 0;
         this.isActive=true;
-
     }
 
     public User(User user) {
