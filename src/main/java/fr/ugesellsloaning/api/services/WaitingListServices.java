@@ -110,7 +110,10 @@ public class WaitingListServices {
     }
 
     public void deleteByProduct(long product){
-       iWaitingList.deleteById(getWaitingListByProduct(product).getId());
+        WaitingList waitingList =  getWaitingListByProduct(product);
+        if(waitingList!=null){
+            iWaitingList.deleteById(waitingList.getId());
+        }
     }
 
 }

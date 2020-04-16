@@ -14,6 +14,9 @@ public interface IUserRepository extends CrudRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.isActive = true and (u.login = ?1 or u.email=?1)")
     Optional<User> loginQuery(String login);
+
+    User findUserByLogin(String login);
+
     User findUserByEmail(String email);
     User findById(long id);
 

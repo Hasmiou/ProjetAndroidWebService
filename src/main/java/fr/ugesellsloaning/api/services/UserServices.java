@@ -1,9 +1,11 @@
 package fr.ugesellsloaning.api.services;
 
+import fr.ugesellsloaning.api.entities.Account;
 import fr.ugesellsloaning.api.entities.Product;
 import fr.ugesellsloaning.api.entities.User;
 import fr.ugesellsloaning.api.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,9 +42,30 @@ public class UserServices{
     @Autowired
     WishlistServices wishlistServices;
 
-    public void save(User user){
+    @Autowired
+    AccountServices accountServices;
+
+
+    public boolean save(User user){
+        boolean userExist = false;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        Iterable<User> listUser = listUser();
+        for (User u : listUser){
+            if(u.getLogin().equals(user.getLogin()) && u.getEmail().equals(user.getEmail())){
+                userExist = true;
+            }
+        }
+        if(userExist==false){
+            userRepository.save(user);
+            if(user.getRole().equals("Customer")){
+                Account account = new Account();
+                account.setUser(user.getId());
+                accountServices.save(account);
+            }
+
+            return true;
+        }
+        return false;
     }
 
     public Iterable<User> listUser(){
@@ -55,7 +78,7 @@ public class UserServices{
         return getUser(user);
     }
 
-    public List<User> getUserByLogin(String login) {
+    public List<User> getUsersByLogin(String login) {
         List<User> listUsers = userRepository.findAllByLogin(login);
         return getUsers(listUsers);
     }
@@ -67,6 +90,10 @@ public class UserServices{
     public User getUserByEmail(String email){
       User user = userRepository.findUserByEmail(email);
         return getUser(user);
+    }
+
+    public User getUserByLogin(String login){
+        return userRepository.findUserByLogin(login);
     }
 
     public void delete(User user){

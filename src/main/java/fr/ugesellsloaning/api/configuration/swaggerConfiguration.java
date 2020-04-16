@@ -22,7 +22,7 @@ import java.util.List;
 @EnableSwagger2
 public class swaggerConfiguration {
 
-    private static final String DEFAULT_INCLUDE_PATTERN = "/api/.*";
+    private static final String DEFAULT_INCLUDE_PATTERN = "/secured/.*";
     private static final String AUTHORIZATION_HEADER = "Authorization";
 
     @Bean
