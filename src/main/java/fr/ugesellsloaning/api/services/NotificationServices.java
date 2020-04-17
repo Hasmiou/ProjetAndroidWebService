@@ -55,8 +55,6 @@ public class NotificationServices {
 
 
     public void SendMailNotificationUtilisateur(User user, String object, String message) {
-        //User u = userServices.getUserById(u)
-        //Utilisateur u = utilisateurDao.GetUtilisateurById(IdUtilisateur);
         Properties props = new Properties();
         props.put("mail.smtp.host", "mail.makcenter.ma");
         props.put("mail.smtp.socketFactory.port", "465");
