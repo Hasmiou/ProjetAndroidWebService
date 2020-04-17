@@ -112,9 +112,11 @@
                     <td th:text="${p.available}"/>
                     <td th:text="${p.user}"/>
                     <td>
-                      <a class="btn btn-primary btn-xs" style="margin: 5px;" disabled="">View</a>
-                      <a class="btn btn-default btn-xs" style="margin: 5px;" disabled="">Edit</a>
-                      <a class="btn btn-danger btn-xs" style="margin: 5px;" disabled="">Del</a>
+                      <a th:href="@{/admin/product/edit/{id}(id = ${p.id})}" class="btn btn-default btn-xs" style="margin: 5px;">Edit</a>
+                      <form action="#" th:action="@{/admin/product/remove}" method="post">
+                        <input type="hidden" name="id" th:value="${p.id}">
+                        <button class="btn btn-danger btn-xs" style="margin: 5px;" onclick="confirm(Etes vous sure de vouloir le supprimer?);">Del</button>
+                      </form>
                     </td>
                   </tr>
                   </tbody>
