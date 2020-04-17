@@ -44,7 +44,7 @@ public class ProductMvcController {
         model.addAttribute("users", userList);
         model.addAttribute("product", product);
         model.addAttribute("method", "put");
-        return "formProduct";
+        return "editFormProduct";
     }
 
     @PostMapping("/admin/product/remove")
@@ -56,7 +56,7 @@ public class ProductMvcController {
     }
 
     @RequestMapping(value = "/admin/product/save", method = {RequestMethod.POST, RequestMethod.PUT})
-    public String submit(Model model, @ModelAttribute @Valid Product product, BindingResult errors){
+    public String submit(Model model, @ModelAttribute @Valid Product product, BindingResult errors, @RequestParam("_method") String method){
         List<User> userList = (List<User>) userServices.listUser();
         model.addAttribute("users", userList);
         model.addAttribute("product", product);
@@ -64,13 +64,10 @@ public class ProductMvcController {
         if(errors.hasErrors()){
             model.addAttribute("errors", errors.getAllErrors());
             model.addAttribute("hasError", true);
-            return "formProduct";
+            return (method.equals("post"))?"formProduct":"editFormProduct";
         }
 
         product.setPath((product.getName()+product.getUser()+".jpg").toLowerCase().trim());
-        /*if(product.getId()!=0L){
-            //productServices
-        }*/
         productServices.save(product);
         return  "redirect:/admin/product";
     }
