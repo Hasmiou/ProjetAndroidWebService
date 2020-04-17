@@ -110,7 +110,6 @@ public class WaitingListServices {
             requestBorrow.setStatus(true);
             requestBorrowServices.save(requestBorrow);
         }
-
     }
 
     public void deleteByProduct(long product){
