@@ -28,13 +28,20 @@ public class RequestBorrowController {
     }
 
     @PostMapping(path = "/")
-    public void add(@Valid @RequestBody RequestBorrow requestBorrow){
+    public boolean add(@Valid @RequestBody RequestBorrow requestBorrow){
         /*
         String email = "kanghebalde1@gmail.com";
         User user = userServices.getUserByEmail(email);
         requestBorrow.setUser(user.getId());
          */
+        List<RequestBorrow> r=  requestBorrowServices.getRequestBorrowByUser(requestBorrow.getUser());
+        for (RequestBorrow requestBorrow1: r) {
+            if(requestBorrow.getProduct() == requestBorrow1.getProduct() && !requestBorrow1.isStatus()){
+                return false;
+            }
+        }
         requestBorrowServices.save(requestBorrow);
+        return true;
     }
 
     @GetMapping(path = "/{id}")
