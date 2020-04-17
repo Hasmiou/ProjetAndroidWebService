@@ -78,13 +78,9 @@ public class UserServices{
         return getUser(user);
     }
 
-    public List<User> getUsersByLogin(String login) {
-        List<User> listUsers = userRepository.findAllByLogin(login);
-        return getUsers(listUsers);
-    }
 
     public Optional<User> getByLoginQuery(String login){
-        return  userRepository.loginQuery(login);
+        return  userRepository.findByEmail(login);
     }
 
     public User getUserByEmail(String email){
