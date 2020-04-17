@@ -145,10 +145,10 @@ public class UserServices{
             String objet = "Confirmation de votre inscription";
             String message = "Bonjour," +
                     "\n\nVous venez de vous inscrire sur l'application UGE." +
-                    "Nous vous souhaitons la bienvenue. Veuillez trouver ci-dessous vos identifiants de connexion." +
+                    "Nous vous souhaitons la bienvenue. \n\nVeuillez trouver ci-dessous vos identifiants de connexion." +
                     "\nVotre identifiant : " + user.getEmail() +
                     "\nVotre mot de passe : " +  user.getPassword() +
-                    "\nCordialement."+
+                    "\n\nCordialement."+
                     "\n\nUniversité Gustave Eiffel";
             notificationServices.SendMailNotificationUtilisateur(user, objet, message);
         }

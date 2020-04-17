@@ -101,7 +101,7 @@ public class CartController {
     }
 
     @GetMapping(path = "/buy/{user}")
-    public boolean buyCart(@PathVariable(value = "user")  long user){
+    public int buyCart(@PathVariable(value = "user")  long user){
         Double amount = 0.0;
         //String email =  "fati2@gmail.com";
         User u = userServices.getUserById(user);
@@ -114,7 +114,7 @@ public class CartController {
                 return cartServices.confirmPurchase(u.getId(), amount);
             }
         }
-        return false;
+        return 0;
     }
 
     /*

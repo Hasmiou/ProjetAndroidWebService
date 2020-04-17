@@ -71,7 +71,7 @@ public class CartServices {
         return  products;
     }
 
-    public boolean confirmPurchase(long user,double amount){
+    public int confirmPurchase(long user,double amount){
         if (accountServices.sufficientbalance(user, amount)) {
             Account account = accountServices.getAccountByUser(user);
             account.setSolde(account.getSolde() - amount);
@@ -85,9 +85,9 @@ public class CartServices {
                 productServices.deleteById(p.getId());
             }
             deleteByUser(user);
-            return true;
+            return 1;
         }
-        return false;
+        return 0;
     }
 }
 
