@@ -48,7 +48,7 @@ public class UserServices{
 
     public boolean save(User user){
         boolean userExist = false;
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         Iterable<User> listUser = listUser();
         for (User u : listUser){
             if(u.getLogin().equals(user.getLogin()) && u.getEmail().equals(user.getEmail())){
