@@ -38,7 +38,6 @@ public class CommentController {
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody  Comment comment){
 
-        //String email = "kanghebalde1@gmail.com";
         User user = userServices.getUserById(comment.getUser());
         //comment.setUser(user.getId());
         comment.setLastName(user.getLastName());

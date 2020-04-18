@@ -10,9 +10,12 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.Vector;
 
 @Service
 public class NotificationServices {
@@ -92,9 +95,8 @@ public class NotificationServices {
         return notificationRepository.findNotificationByUser(user);
     }
 
-
-
-
-
+    public List<Notification> getNotificationOrderByCreatedAtDes(long user){
+        return notificationRepository.notificationOfUser(user);
+    }
 
 }

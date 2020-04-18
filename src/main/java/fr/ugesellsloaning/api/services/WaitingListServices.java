@@ -85,7 +85,6 @@ public class WaitingListServices {
         LocalDateTime d2 = LocalDateTime.parse(date2, format);
         if(d1.isBefore(d2)) return true;
         return false;
-
     }
 
     public void WaitingListTraitement(long product) {
@@ -102,7 +101,7 @@ public class WaitingListServices {
             n.setProduct(p.getId());
             n.setImage(p.getPath());
             notificationServices.save(n);
-            String message ="Bonjour ,\n\nVous avez demander d\'emprunter le produit : "+p.getName()+" à "+date+ ", il est actuellement disponible vous pouvez l\'emprunter dès maintentant.\n Cordialement.\nUniversité Gustave Eiffel";
+            String message ="Bonjour ,\n\nVous avez demander d\'emprunter le produit : "+p.getName()+" à "+date+ ", il est actuellement disponible vous pouvez l\'emprunter dès maintentant.\n\nCordialement.\nUniversité Gustave Eiffel";
             String object = "Produit "+ p.getName()+" est disponible !";
             notificationServices.SendMailNotificationUtilisateur(u, object, message);
 

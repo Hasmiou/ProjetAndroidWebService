@@ -80,9 +80,8 @@ public class WishlistController {
         return null;
     }
 
-    @DeleteMapping("/deleteAll/{user}")
+    @GetMapping("/deleteAll/{user}")
     public int deleteCartByUser(@PathVariable(value = "user")  long user){
-        //String email = "fati2@gmail.com";
         User u = userServices.getUserById(user);
         if(u!=null){
             wishlistServices.deleteByUser(u.getId());

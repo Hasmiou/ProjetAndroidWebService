@@ -43,18 +43,13 @@ public class ProductController {
 
     @GetMapping(path = "/")
     public List<Product> list(){
-        //principal = request.getUserPrincipal();
-         //email = principal.getName();
-        //System.out.println(email);
         return (List<Product>) productServices.listProduct();
 
     }
 
     @GetMapping(path = "/buy/")
     public List<Product> listtobuy(){
-        //principal = request.getUserPrincipal();
-        //email = principal.getName();
-        //System.out.println(email);
+
         return productServices.listProductbuy();
 
     }
@@ -76,10 +71,6 @@ public class ProductController {
 
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody Product product){
-/*
-        Optional<User> user = userServices.getByLoginQuery(principal.getName());
-        user.ifPresent(value -> product.setUser(value.getId()));
-*/
         productServices.save(product);
     }
 

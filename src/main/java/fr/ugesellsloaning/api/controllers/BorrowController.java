@@ -47,11 +47,7 @@ public class BorrowController {
 
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody  Borrow borrow){
-        /*
-        String email = "kanghebalde1@gmail.com";
-        User user = userServices.getUserByEmail(email);
-        borrow.setUser(user.getId());
-        */
+
         //borrow
         User user = userServices.getUserById(borrow.getUser());
         borrowServices.save(borrow);
@@ -84,15 +80,5 @@ public class BorrowController {
         borrowServices.deleteById(id);
     }
 
-    /*
-    @PostMapping(path = "/return/")
-    public void returnBorrow(@Valid @RequestBody  Borrow borrow){
-        Product p = productServices.getProductById(borrow.getProduct());
-        p.setAvailable(true);
-        productServices.save(p);
-
-    }
-
-     */
 
 }

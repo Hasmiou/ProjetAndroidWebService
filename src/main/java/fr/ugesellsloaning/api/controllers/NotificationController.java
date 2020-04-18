@@ -33,6 +33,14 @@ public class NotificationController {
         return (List<Notification>) notificationServices.listNotification();
     }
 
+
+
+    @GetMapping(path = "/user/{user}")
+    public List<Notification> list(@PathVariable(value = "user")  long user){
+        return notificationServices.getNotificationOrderByCreatedAt(user) ;
+    }
+
+
     @PostMapping(path = "/")
     public void add(@Valid @RequestBody Notification notification){
         notificationServices.save(notification);
@@ -40,13 +48,6 @@ public class NotificationController {
 
     @GetMapping(path = "/updateNotification/{id}/{user}")
     public int updateNotification(@PathVariable(value = "id")  long id,@PathVariable(value = "user")  long user){
-
-        /*
-        //Current User
-        String email = "kanghebalde1@gmail.com";
-        User user = userServices.getUserByEmail(email);
-        */
-        //Vector<Notification> res = new Vector<Notification>();
 
         User u = userServices.getUserById(user);
 
