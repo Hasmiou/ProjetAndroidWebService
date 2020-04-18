@@ -37,7 +37,7 @@ public class NotificationController {
 
     @GetMapping(path = "/user/{user}")
     public List<Notification> list(@PathVariable(value = "user")  long user){
-        return notificationServices.getNotificationOrderByCreatedAt(user) ;
+        return notificationServices.getNotificationOrderByCreatedAtDes(user) ;
     }
 
 
