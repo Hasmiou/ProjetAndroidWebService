@@ -1,10 +1,7 @@
 package fr.ugesellsloaning.api.controllers;
 
 
-import fr.ugesellsloaning.api.entities.Cart;
-import fr.ugesellsloaning.api.entities.Product;
-import fr.ugesellsloaning.api.entities.User;
-import fr.ugesellsloaning.api.entities.Wishlist;
+import fr.ugesellsloaning.api.entities.*;
 import fr.ugesellsloaning.api.services.ProductServices;
 import fr.ugesellsloaning.api.services.UserServices;
 import fr.ugesellsloaning.api.services.WishlistServices;
@@ -90,14 +87,20 @@ public class WishlistController {
        return 0;
     }
 
-    @DeleteMapping("/product/{product}")
-    public int deleteProductInWishlist(@PathVariable(value = "product")  long product){
-        String email = "fati2@gmail.com";
-        User user = userServices.getUserByEmail(email);
-
-        wishlistServices.deleteByProduct(product);
-
-        return wishlistServices.getProductInWishlist(user.getId()).size();
+    @GetMapping("/product/{product}/{user}")
+    public int deleteProductInWishlist(@PathVariable(value = "product")  long product,@PathVariable(value = "user")  long user){
+        User u = userServices.getUserById(user);
+        if(u!=null){
+            List<Wishlist> wishlists = wishlistServices.getWishlistByUser(user);
+            for (Wishlist list: wishlists) {
+                if(list.getProduct() == product) {
+                    wishlistServices.deleteByProduct(product);
+                    return wishlistServices.getProductInWishlist(user).size();
+                }
+            }
+            return 0;
+        }
+        return -1;
     }
 
     @GetMapping(path = "/addInCart/{user}")
