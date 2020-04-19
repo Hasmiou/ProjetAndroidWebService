@@ -99,12 +99,7 @@ public class swaggerConfiguration {
                         "Fatima Zohra Sersouri : http://makcenter.ma/uge/projetAndroid/video/FatimaZohraSersouri.mp4\n" +
                         "Yasmine Mekouar : http://makcenter.ma/uge/projetAndroid/video/YasmineMekouar.mp4\n" +
                         "Mamadou Hassimiou Diallo : http://makcenter.ma/uge/projetAndroid/video/MamadouHassimiouDiallo.mp4\n" +
-                        "Ahmed Bennani: http://makcenter.ma/uge/projetAndroid/video/AhmedBennani.mp4\n -Diallo Mamadou Hassimiou" +
-                        "\n -Balde Mamadou Kanghe" +
-                        "\n -Mouhsine" +
-                        "\n -Fati" +
-                        "\n -Yasmine Mekouar" +
-                        "\n -Ahmed.").termsOfServiceUrl("")
+                        "Ahmed Bennani: http://makcenter.ma/uge/projetAndroid/video/AhmedBennani.mp4\n -Diallo Mamadou Hassimiou").termsOfServiceUrl("")
                 .contact(new Contact("Developper", "www.mondemarcheur.com", "mamadou-hassimiou.diallo@outlook.com"))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
